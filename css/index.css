@@ -38,6 +38,10 @@
             cursor: pointer;
             font-size: 15px;
             padding: 9px 18px;
+            transition: 300ms;
+        }
+        .btn-contact-nav:hover{background-color: orangered;
+            
         }
 
         /* section */
@@ -78,7 +82,10 @@
             cursor: pointer;
             font-size: 15px;
             padding: 7px 20px;
-    
+            transition: 300ms;
+        }
+        .btn-contact:hover{background-color: orangered;
+            
         }
         .icon{
             font-size: 40px;
@@ -87,6 +94,9 @@
             margin: 0 auto 20px;
             margin-top: 60px;
             cursor: pointer;
+        }
+        .cv i{font-size: 20px;
+            font-weight: bold;
         }
         .second-container{width: 40%;
             height: 100%x;

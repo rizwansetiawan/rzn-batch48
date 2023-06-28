@@ -37,6 +37,10 @@ body{margin: 0;
     font-weight: bold;
     cursor: pointer;
     font-size: 15px;
+    transition: 300ms;
+}
+.btn-contact-nav:hover{background-color: orangered;
+            
 }
 
 /* FORM */
@@ -93,6 +97,10 @@ label{font-weight: bold;
     font-size: 14px;
     transform: translateX(10px);
     padding-top: 7px;
+    transition: 300ms;
+}
+.btn-submit:hover{background-color: orangered;
+            
 }
 
 
