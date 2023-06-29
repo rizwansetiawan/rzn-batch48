@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon"type="favicon" href="../images/logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
+
     <link rel="stylesheet" href="css/contact.css">
     <title>contact</title>
 </head>
@@ -16,7 +18,8 @@
                 <li><a href="">My Project</a></li>
             </ul>
             <div class="btn-container">
-                <a href="contact.html"><button type="button"class="btn-contact-nav">contact me</button></a>
+                <button class="dark-mode"><i class="ri-moon-fill"></i></button>
+                <a href="contact.html"><button type="button"class="btn-contact-nav"onclick="notDefault(event)">contact me</button></a>
                 </div>
             </div>
     </nav>
@@ -51,10 +54,11 @@
             </div>
             <textarea cols="20" rows="10"id="textarea"></textarea>
             <p class="btn-form">
-            <button type="submit"class="btn-submit">submit</button>
+            <button type="submit"class="btn-submit"onclick="notDefault(event)">submit</button>
             </p>
         </form>
     </div>
 </section>
+<script src="js/contact.js"></script>
 </body>
 </html>
