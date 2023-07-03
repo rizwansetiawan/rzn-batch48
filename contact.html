@@ -44,17 +44,17 @@
             </div>
             <select id="select">
                 <option value=""hidden></option>
-                <option value="">Javascript</option>
-                <option value="">Python</option>
-                <option value="">Swift</option>
-                <option value="">Ruby</option>
+                <option id="javascript">Javascript</option>
+                <option id="python">Python</option>
+                <option id="swift">Swift</option>
+                <option id="ruby">Ruby</option>
             </select>
             <div>
                 <label for="textarea">Your Message</label>
             </div>
             <textarea cols="20" rows="10"id="textarea"></textarea>
             <p class="btn-form">
-            <button type="submit"class="btn-submit"onclick="notDefault(event)">submit</button>
+            <button type="submit"class="btn-submit"onclick="userValidation(event)">submit</button>
             </p>
         </form>
     </div>

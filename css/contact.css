@@ -69,8 +69,10 @@
             padding-left: 5px;
             margin-bottom: 15px;
             box-shadow: 0 3px 5px #bcbcbc;
-
+            font-size: 16px;
+            /* background-color: #ffffff; */
         }
+        input:hover{background-color: white;}
         select{width: 101.5%;
             border-radius: 5px;
             height: 40px;
@@ -87,6 +89,8 @@
             padding: 5px ;
             margin-bottom: 5px;
             box-shadow: 0 3px 5px #bcbcbc;
+            font-size: 14px;
+
         }
         label{font-weight: bold;
             
@@ -131,7 +135,8 @@
         }
         .open label{color: whitesmoke;
         }
-        .open input,select,textarea{box-shadow: none;
+        .open input,.open select,.open textarea{box-shadow: none;
+            background-color: #d6d6d6;
         }
         .open .btn-contact-nav{background-color: orangered;
         }
@@ -143,5 +148,4 @@
         .open .btn-submit:hover{background-color: #ffffff;
             color: black;
         }
-
 
