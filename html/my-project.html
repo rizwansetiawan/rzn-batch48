@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon"type="favicon" href="../images/logo.png">
+    <link rel="stylesheet" href="../css/my-project.css">
+    <title>my-project</title>
+</head>
+<body>
+    <nav>
+        <div class="main-navbar">
+            <img src="../images/logo.png" alt="logo-dumbways"class="nav-logo">
+            <ul class="item-link">
+                <li><a href="../index.html"class="active">Home</a></li>
+                <li><a href="">My Project</a></li>
+            </ul>
+            <div class="btn-container">
+                <button class="dark-mode"><i class="ri-sun-fill"id="dark-sun"></i><i class="ri-moon-fill"id="dark-moon"></i></button>
+                <a href="contact.html"><button type="button"class="btn-contact-nav">contact me</button></a>
+                </div>
+            </div>
+    </nav>
+    <h1 class="header-title">Add My Project</h1>
+    <form onsubmit="dataBlog(event)">
+        <div class="container-form">
+            <div>
+                <label for="name">Project Name</label>
+            </div>
+            <input type="text" id="name">
+            <br>
+            <div class="date-label">
+                <label for="start-date">start date</label>
+                <label for="end-date">end date</label>
+            </div>
+            <div class="date-input">
+            <input type="date"id="start-date">
+            <input type="date"id="end-date">
+            </div>
+            <div>
+                <label for="textarea">Description</label>
+            </div>
+            <textarea id="textarea" cols="30" rows="7"></textarea>
+            <div>
+                <label for="technologies">Technologies</label>
+            </div>
+            <div class="tech-label">
+            <input type="checkbox"id="react"><span>React Js</span>
+            <input type="checkbox"id="vue"><span>Vue Js</span>
+            <br>
+            <input type="checkbox"id="node"><span> Node Js</span>
+            <input type="checkbox"id="angular"><span> Angular Js</span>
+            </div>
+            <label for="input-file"onclick="fileMe()">
+                Upload image
+                <div class="file">
+                <strong>choose</strong>
+                <img src="../images/file.png" alt="upload">
+                <input type="file"id="input-file"hidden> 
+            </div>
+            </label>
+            <p class="btn-submit"><button type="submit"onclick="userValidation()">submit</button></p>
+        </div>
+    </form>
+    <br><br>
+    <hr>
+    <h1 class="first-card-title">My Project</h1>
+    <div class="card-main-container">
+
+        <div class="card1">
+            <div class="content-card1">
+                <img src="../images/img2.png" alt="image2"class="image2"/>
+                <h3 class="title-card"><a href="../html/blog-detail.html"> Dumbways Mobile App </a></h3>
+                <p>Duration : 3 Month</p>
+                <p class="paragraf">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt quaerat impedit officiis tempora voluptatem maiores ea iusto at incidunt modi.</p>
+                <div class="icon-card">
+                <i class="fa-brands fa-react"></i>
+                <i class="fa-brands fa-vuejs"></i>
+                <i class="fa-brands fa-angular"></i>
+                <i class="fa-brands fa-node-js"></i>
+            </div>
+            <div class="btn-card">
+            <button>Edit</button>
+            <button>Delete</button>
+            </div>
+            </div>
+        </div>
+        <div class="card2">
+            <div class="content-card1">
+                <img src="../images/img4.png" alt="image2"class="image2"/>
+                <h3 class="title-card"><a href="../html/blog-detail.html"> Dumbways Mobile App </a></h3>
+                <p>Duration : 3 Month</p>
+                <p class="paragraf">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt quaerat impedit officiis tempora voluptatem maiores ea iusto at incidunt modi.</p>
+                <div class="icon-card">
+                <i class="fa-brands fa-react"></i>
+                <i class="fa-brands fa-vuejs"></i>
+                <i class="fa-brands fa-angular"></i>
+                <i class="fa-brands fa-node-js"></i>
+            </div>
+            <div class="btn-card">
+            <button>Edit</button>
+            <button>Delete</button>
+            </div>
+            </div>
+        </div>
+        <div class="card3">
+            <div class="content-card1">
+                <img src="../images/img3.png" alt="image2"class="image2"/>
+                <h3 class="title-card"><a href="../html/blog-detail.html"> Dumbways Mobile App </a></h3>
+                <p>Duration : 3 Month</p>
+                <p class="paragraf">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt quaerat impedit officiis tempora voluptatem maiores ea iusto at incidunt modi.</p>
+                <div class="icon-card">
+                <i class="fa-brands fa-react"></i>
+                <i class="fa-brands fa-vuejs"></i>
+                <i class="fa-brands fa-angular"></i>
+                <i class="fa-brands fa-node-js"></i>
+            </div>
+            <div class="btn-card">
+            <button>Edit</button>
+            <button>Delete</button>
+            </div>
+            </div>
+        </div>
+        <div class="card4">
+            <div class="content-card1">
+                <img src="../images/img2.png" alt="image2"class="image2"/>
+                <h3 class="title-card"><a href="../html/blog-detail.html"> Dumbways Mobile App </a></h3>
+                <p>Duration : 3 Month</p>
+                <p class="paragraf">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt quaerat impedit officiis tempora voluptatem maiores ea iusto at incidunt modi.</p>
+                <div class="icon-card">
+                <i class="fa-brands fa-react"></i>
+                <i class="fa-brands fa-vuejs"></i>
+                <i class="fa-brands fa-angular"></i>
+                <i class="fa-brands fa-node-js"></i>
+            </div>
+            <div class="btn-card">
+            <button>Edit</button>
+            <button>Delete</button>
+            </div>
+            </div>
+        </div>
+        <div class="card5">
+            <div class="content-card1">
+                <img src="../images/vue2.png" alt="image2"class="image2"/>
+                <h3 class="title-card"><a href="../html/blog-detail.html"> Dumbways Mobile App </a></h3>
+                <p>Duration : 3 Month</p>
+                <p class="paragraf">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt quaerat impedit officiis tempora voluptatem maiores ea iusto at incidunt modi.</p>
+                <div class="icon-card">
+                <i class="fa-brands fa-react"></i>
+                <i class="fa-brands fa-vuejs"></i>
+                <i class="fa-brands fa-angular"></i>
+                <i class="fa-brands fa-node-js"></i>
+            </div>
+            <div class="btn-card">
+            <button>Edit</button>
+            <button>Delete</button>
+            </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="../js/my-project.js"></script>
+</body>
+</html>

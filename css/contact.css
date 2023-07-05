@@ -2,7 +2,7 @@
 
         body{margin: 0;
             padding: 0;
-            background-color: #dce0e4;;
+            background-color: #dce0e4;
             font-family: 'Poppins', sans-serif;
             transition: .8s;
             
@@ -130,6 +130,7 @@
             background-color: #ffffff;
             font-size: 20px;
             cursor: pointer;
+            text-shadow: 1px 3px 25px whitesmoke;
         }
         .open .title-form{color: whitesmoke;
         }
@@ -148,4 +149,6 @@
         .open .btn-submit:hover{background-color: #ffffff;
             color: black;
         }
-
+        .open #icon-dark-mode{display: none;}
+        #dark-moon{display: none;}
+        .open #dark-moon{display: flex;}

@@ -148,6 +148,8 @@
             background-color: #ffffff;
             font-size: 20px;
             cursor: pointer;
+            text-shadow: 1px 3px 25px whitesmoke;
+
         }
         .open .btn-contact-nav{background-color: orangered;
         }
@@ -164,4 +166,7 @@
         .open .btn-contact:hover{background-color: whitesmoke;
             color: black;
         }
-        
+        .open #icon-dark-mode{display: none;}
+        #dark-moon{display: none;}
+        .open #dark-moon{display: flex;}
+        .open #dark-sun{display: none;}

@@ -44,7 +44,8 @@ let dataUser = {
     textarea,
 }
 console.log(dataUser)
+const emailReceiver = "dumbways21@gmail.com"
 let link = document.createElement("a")
-link.href = `mailto:${email}?subject=${select}&body=halo my name is ${names} according me about ${select}: ${textarea}, and my phone number is ${phone} thank you`
+link.href = `mailto:${emailReceiver}?subject=${select}&body=halo my name is ${names} according me about ${select}: ${textarea}, and my phone number is ${phone} thank you`
 link.click()
 }
