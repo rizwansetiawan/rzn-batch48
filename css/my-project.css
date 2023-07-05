@@ -29,6 +29,7 @@ body{margin: 0;
     color: black;
     font-weight: bold;
 }
+li a.active{color: orangered;}
 .btn-container{display: flex;
     align-items: center;
     gap:60px;
@@ -68,7 +69,9 @@ body{margin: 0;
     box-shadow: 0 1px 6px #ababab;
     margin-bottom: 13px;
 }
-#start-date,#end-date{padding-right: 8px;}
+#start-date,#end-date{padding-right: 8px;
+
+}
 label{font-weight: bold;
 }
 textarea{resize: none;
@@ -103,10 +106,12 @@ textarea{resize: none;
     position: relative;
     overflow: hidden;
     z-index: -99;
-    
 }
 #input-file{
-    margin-left: -120px;
+    margin-left: -133px;
+    padding-right: 20px;
+    font-size: 16px;
+    background-color: transparent;
 }
 .file img{
     transform: translateX(485px)translateY(7px) rotate(45deg);
@@ -124,7 +129,7 @@ textarea{resize: none;
 .btn-submit button{border-radius: 10px;
     background-color: black;
     color: white;
-    padding: 6px 25px;
+    padding: 10px 25px;
     border: none;
     cursor: pointer;
     font-size: 13px;
@@ -209,23 +214,6 @@ margin:10px auto;
 .btn-card button:hover{background-color: orangered;
     color: white;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /* DARK MODE */

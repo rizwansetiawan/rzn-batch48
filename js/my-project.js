@@ -64,6 +64,28 @@ function dataBlog(event){
 
     uploadImage = URL.createObjectURL(uploadImage[0])
 
+    function timePost(){
+        let startDate   = new Date(document.getElementById("start-date").value);
+        let endDate     = new Date(document.getElementById("end-date").value);
+        let result      = new Date(endDate)-new Date(startDate);
+        // console.log(result)
+        let days    = Math.floor(result/(1000*3600*24))
+        let weeks   = Math.floor(result/(1000*3600*24*7))
+        let months  = Math.floor(result/(1000*3600*24*30))
+        let years   = Math.floor(result/(1000*3600*24*360))
+        
+        if(years == 1 || years > 0){
+            return `${years} Tahun`
+        }else if(months == 1 ||months >0){
+            return `${months} Bulan`
+        }else if(weeks == 1 ||weeks >0){
+            return `${weeks} Minggu`
+        }else if(days == 1 ||days >0){
+            return `${days} Hari`
+        }
+        
+    };
+    let timeDistance    = timePost()
     let datasInput = {
         nameProject,
         startDate,
@@ -74,11 +96,12 @@ function dataBlog(event){
         vue,
         angular,
         node,
+        timeDistance,
     }
     storageDataUser.push(datasInput);
     console.info(storageDataUser);
-
     renderBlog()
+
 };
 function renderBlog(){
         document.querySelector(".card-main-container").innerHTML = "";
@@ -89,7 +112,7 @@ function renderBlog(){
         <div class="content-card1">
             <img src="${storageDataUser[index].uploadImage}" alt="image2"class="image2"/>
             <h3 class="title-card"><a href="../html/blog-detail.html"> ${storageDataUser[index].nameProject} </a></h3>
-            <p>Duration : 3 Month</p>
+            <p>Duration : ${storageDataUser[index].timeDistance}</p>
             <div class="offset">
             <p class="paragraf">${storageDataUser[index].description}.</p>
             </div>
