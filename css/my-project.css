@@ -70,6 +70,8 @@ li a.active{color: orangered;}
     margin-bottom: 13px;
 }
 #start-date,#end-date{padding-right: 8px;
+height: 38px;
+box-shadow: 0 1px 6px #ababab;
 
 }
 label{font-weight: bold;
@@ -90,7 +92,7 @@ textarea{resize: none;
 .date-input{display: flex;
     gap:20px;
 }
-#react,#angular,#next,#vue{border: none;
+#react,#angular,#node,#vue{border: none;
     height: 15px;
     width: 15px;
     
@@ -138,15 +140,7 @@ textarea{resize: none;
 .btn-submit button:hover{background-color: orangered;
     transition: .4s;
 }
-body.open{background-color: #2b2b2b;}
-.open.main-navbar{background-color: #2e2e2e;
-    box-shadow: 0 1px 10px rgb(89, 89, 89);
-}
-.open .item-link a{text-decoration: none;
-    color: #ffffff;
-    font-weight: bold;
-}
-.open .item-link li a.active{color: #ffffff;}
+
 .dark-mode{
     border: none;
     border-radius: 20px;
@@ -214,9 +208,18 @@ margin:10px auto;
 .btn-card button:hover{background-color: orangered;
     color: white;
 }
-
+hr{width: 80%;}
 
 /* DARK MODE */
+body.open{background-color: #2b2b2b;}
+.open.main-navbar{background-color: #2e2e2e;
+    box-shadow: 0 1px 10px rgb(89, 89, 89);
+}
+.open .item-link a{text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+}
+.open .item-link li a.active{color: #ffffff;}
 .open .header-title{color: whitesmoke;
 }
 .open label{color: whitesmoke;
