@@ -2,7 +2,18 @@ let mode    = document.querySelector(".dark-mode");
 let navbar  = document.querySelector(".main-navbar");
 let btnDark = document.querySelector(".btn-contact-nav");
 let index   = true;
-
+let burgerIcon = document.querySelector(".burger-menu")
+let containerBurger = document.querySelector(".dropdown-menu")
+function myBurger(){
+    if(index == true){
+        containerBurger.style.display="block";
+        // cntIndex.style.marginTop="50px"
+        index=false;
+    }else{containerBurger.style.display="none";
+    // cntIndex.style.marginTop="0"
+        index=true;
+}
+}
 mode.addEventListener("click",()=>{
     if (index == true){
     document.body.classList.add("open");
@@ -44,7 +55,7 @@ let dataUser = {
     textarea,
 }
 console.log(dataUser)
-const emailReceiver = "dumbways21@gmail.com"
+const emailReceiver = "rhoma_irama@gmail.com"
 let link = document.createElement("a")
 link.href = `mailto:${emailReceiver}?subject=${select}&body=halo my name is ${names} according me about ${select}: ${textarea}, and my phone number is ${phone} thank you`
 link.click()

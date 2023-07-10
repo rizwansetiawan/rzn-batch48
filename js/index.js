@@ -1,5 +1,7 @@
 let mode    = document.querySelector(".dark-mode");
 let navbar  = document.querySelector(".main-navbar");
+let cntIndex= document.querySelector(".container-index")
+let burgerIcon = document.querySelector(".burger-menu")
 let index   = true;
 mode.addEventListener("click",()=>{
     if (index == true){
@@ -7,28 +9,24 @@ mode.addEventListener("click",()=>{
     navbar.classList.add("open")
     mode.style.color="white";
     mode.style.backgroundColor="transparent";
+    burgerIcon.style.color="white"
     index=false;
     
 }else{document.body.classList.remove("open");
-navbar.classList.remove("open");
-mode.style.color="black";
-index=true;}
+    navbar.classList.remove("open");
+    mode.style.color="black";
+    burgerIcon.style.color="black"
+    index=true;}
 })
-
-// let coba = [
-//     {
-//         firts : "muhamad",
-//         lastname:"rizwan",
-//     },
-//     {
-//         addres:"bogor"
-//     }
-// ]
-// console.log(coba[0].lastname)
-// console.log("halo nama saya "+coba.name.firts,coba.name.lastname,"dan sekarang tinggal di"+coba.addres)
-
-// let data = {
-//     anu:["rzn","bogor","saya",false]
-// }
-// console.log(`halo nama saya adalah ${data.anu[0]} dan alamat saya ${data.anu[1]}`)
-// console.info(data.anu.length)
+// BURGER MENU RESPONSIVE //
+let containerBurger = document.querySelector(".dropdown-menu")
+function myBurger(){
+    if(index == true){
+        containerBurger.style.display="block";
+        // cntIndex.style.marginTop="50px"
+        index=false;
+    }else{containerBurger.style.display="none";
+    // cntIndex.style.marginTop="0"
+        index=true;
+}
+}

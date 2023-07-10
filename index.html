@@ -2,11 +2,13 @@
 <head>
     <title>Personal Website</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
     <nav>
         <div class="main-navbar">
+            
             <img src="images/logo.png" alt="logo-dumbways"class="nav-logo">
             <ul class="item-link">
                 <li><a href="index.html"class="active">Home</a></li>
@@ -16,6 +18,16 @@
                 <button class="dark-mode"><i class="ri-sun-fill"id="dark-sun"></i><i class="ri-moon-fill"id="dark-moon"></i></button>
                 <a href="html/contact.html"><button type="button"class="btn-contact-nav">contact me</button></a>
                 </div>
+                <div class="burger-menu"onclick="myBurger()">
+                <i class="fa-solid fa-bars"></i>
+                </div>
+            </div>
+            <div class="dropdown-menu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li class="rows"><a href="html/my-project.html">My Project</a></li>
+                    <li><a href="html/contact.html">Contact Me</a></li>
+                </ul>
             </div>
     </nav>
     <div class="container-index">

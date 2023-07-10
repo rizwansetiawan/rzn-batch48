@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon"type="favicon" href="../images/logo.png">
     <link rel="stylesheet" href="../css/my-project.css">
+    <link rel="stylesheet" href="../css/blog-details.css">
     <title>my-project</title>
 </head>
 <body>
@@ -18,7 +20,17 @@
             <div class="btn-container">
                 <button class="dark-mode"><i class="ri-sun-fill"id="dark-sun"></i><i class="ri-moon-fill"id="dark-moon"></i></button>
                 <a href="contact.html"><button type="button"class="btn-contact-nav">contact me</button></a>
+            </div>
+                <div class="burger-menu"onclick="myBurger()">
+                    <i class="fa-solid fa-bars"></i>
                 </div>
+            </div>
+            <div class="dropdown-menu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li class="rows"><a href="html/my-project.html">My Project</a></li>
+                    <li><a href="html/contact.html">Contact Me</a></li>
+                </ul>
             </div>
     </nav>
     <h1 class="header-title">Add My Project</h1>
@@ -30,8 +42,8 @@
             <input type="text" id="name">
             <br>
             <div class="date-label">
-                <label for="start-date">start date</label>
-                <label for="end-date">end date</label>
+                <label for="start-date">Start date</label>
+                <label for="end-date"class="date-end-label">End date</label>
             </div>
             <div class="date-input">
             <input type="date"id="start-date">
@@ -65,6 +77,7 @@
     <br><br>
     <hr>
     <h1 class="first-card-title">My Project</h1>
+    
     <div class="card-main-container">
 
         <div class="card1">
@@ -72,7 +85,7 @@
                 <img src="../images/img2.png" alt="image2"class="image2"/>
                 <h3 class="title-card"><a href="../html/blog-detail.html"> Dumbways Mobile App </a></h3>
                 <p>Durasi : 3 Bulan</p>
-                <p class="paragraf">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt quaerat impedit officiis tempora voluptatem maiores ea iusto at incidunt modi.</p>
+                <p class="paragraf">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt quaerat impedit officiis tempora voluptatem maiores ea iusto at incidunt modi. </p>
                 <div class="icon-card">
                 <i class="fa-brands fa-react"></i>
                 <i class="fa-brands fa-vuejs"></i>

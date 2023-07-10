@@ -152,3 +152,45 @@
         .open #icon-dark-mode{display: none;}
         #dark-moon{display: none;}
         .open #dark-moon{display: flex;}
+    /* RESPONSIVE */
+        .burger-menu{
+            margin-right: 20px;
+            font-size: 32px;
+            cursor: pointer;
+            margin-top: 8px;
+            display: none;
+            transition: .5s;
+            }
+        .dropdown-menu{
+            width: 100%;
+            height: 90px;
+            background-color: rgba(255, 68, 0, 0.95);
+            margin-top: 60px;
+            font-weight: bold;
+            line-height: 30px;
+            display: none;
+            color: white;
+            padding-left: -50px;
+            transition: .5s;
+        }
+        .dropdown-menu .rows{
+            margin-left: -60px;
+            border: 1px solid rgb(220, 224, 228);}
+        .rows a{margin-left: 60px;}
+        .dropdown-menu li,.dropdown-menu a{
+            list-style-type: none;
+            text-decoration: none;
+            text-align: center;
+            color: inherit;
+            
+        }
+        @media only screen and (max-width:900px){
+            .item-link li a{display: none;}
+            .btn-container button{display: none;}
+            .burger-menu{display: block;}
+            .btn-container .dark-mode{display: block;}
+        }
+        /*  */
+        @media only screen and (max-width:430px){
+            .main-form{width: 315px;}
+        }

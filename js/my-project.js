@@ -1,3 +1,4 @@
+
  // DARK MODE //
     let file = document.getElementById("input-file")
     function fileMe (){
@@ -6,12 +7,23 @@
     let mode    = document.querySelector(".dark-mode");
     let navbar  = document.querySelector(".main-navbar");
     let btnDark = document.querySelector(".btn-contact-nav");
+    let burgerIcon = document.querySelector(".burger-menu")
     let index   = true;
-
+    let containerBurger = document.querySelector(".dropdown-menu")
+    function myBurger(){
+        if(index == true){
+            containerBurger.style.display="block";
+            // cntIndex.style.marginTop="50px"
+            index=false;
+        }else{containerBurger.style.display="none";
+        // cntIndex.style.marginTop="0"
+            index=true;
+    }
+    }
 mode.addEventListener("click",()=>{
     if (index == true){
     document.body.classList.add("open");
-    navbar.classList.add("open")
+    navbar.classList.add("open");
     mode.style.color="white";
     mode.style.backgroundColor="transparent"
     index=false;
@@ -19,7 +31,7 @@ mode.addEventListener("click",()=>{
     navbar.classList.remove("open");
     mode.style.color="black";
     index=true;}
-})
+});
 // USER VALIDATON //    
     function userValidation(){
     let nameProject = document.getElementById("name").value;
@@ -69,22 +81,22 @@ function dataBlog(event){
         let endDate     = new Date(document.getElementById("end-date").value);
         let result      = new Date(endDate)-new Date(startDate);
         // console.log(result)
-        let days    = Math.floor(result/(1000*3600*24))
-        let weeks   = Math.floor(result/(1000*3600*24*7))
-        let months  = Math.floor(result/(1000*3600*24*30))
-        let years   = Math.floor(result/(1000*3600*24*360))
+        let days    = Math.floor(result/(1000*3600*24));
+        let weeks   = Math.floor(result/(1000*3600*24*7));
+        let months  = Math.floor(result/(1000*3600*24*30));
+        let years   = Math.floor(result/(1000*3600*24*360));
         
         if(years == 1 || years > 0){
             return `${years} Tahun`
-        }else if(months == 1 ||months >0){
+        }else if(months == 1 ||months > 0){
             return `${months} Bulan`
-        }else if(weeks == 1 ||weeks >0){
+        }else if(weeks == 1 ||weeks > 0){
             return `${weeks} Minggu`
-        }else if(days == 1 ||days >0){
+        }else if(days == 1 ||days > 0){
             return `${days} Hari`
-        }
+        }else{return `Tidak ada`}
         
-    };
+};
     let timeDistance    = timePost()
     let datasInput = {
         nameProject,
@@ -129,5 +141,5 @@ function renderBlog(){
         </div>
         </div>
     </div>`
-    } 
+    };
 };

@@ -55,6 +55,9 @@ body{margin: 0;
     text-align: center;
     margin-top: 100px;
 }
+.first-main-blog{display: grid;
+    grid-template-columns: auto;
+}
 .main-container{width:80%;
     height: 400px;
     margin: 0 auto;
