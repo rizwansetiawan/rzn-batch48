@@ -26,10 +26,12 @@ mode.addEventListener("click",()=>{
     navbar.classList.add("open");
     mode.style.color="white";
     mode.style.backgroundColor="transparent"
+    burgerIcon.style.color="white"
     index=false;
 }else{document.body.classList.remove("open");
     navbar.classList.remove("open");
     mode.style.color="black";
+    burgerIcon.style.color="black";
     index=true;}
 });
 // USER VALIDATON //    

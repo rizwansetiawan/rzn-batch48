@@ -177,12 +177,12 @@
         .open #dark-sun{display: none;}
         /* RESPONSIVE */
        .burger-menu{
-        margin-right: 20px;
-        font-size: 32px;
-        cursor: pointer;
-        margin-top: 15px;
-        display: none;
-        transition: .5s;
+            margin-right: 20px;
+            font-size: 32px;
+            cursor: pointer;
+            margin-top: 15px;
+            display: none;
+            transition: .5s;
         }
         .dropdown-menu{
             width: 100%;
@@ -207,11 +207,9 @@
             color: inherit;
             
         }
-      
-
             /* RESPONSIVE MEDIA QUERIS */
         @media only screen and (max-width:900px){
-            .main-navbar li a,.btn-container{display: none;}
+            .main-navbar li a,.btn-container a button {display: none;}
             .burger-menu{display: block;}
             .container-index{display: block;
                 height: 1200px;
@@ -228,6 +226,7 @@
             }
             .cv{font-size: 2vw;}
             .icon{font-size: 6vw;}
+            /* .main-navbar .btn-container .dark-mode{display: block;} */
         }
         @media only screen and (max-width:430px){
             .container-index{display: block;
