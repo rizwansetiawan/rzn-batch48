@@ -186,8 +186,8 @@
         }
         .dropdown-menu{
             width: 100%;
-            height: 90px;
-            background-color: rgba(255, 68, 0, 0.95);
+            height: 120px;
+            background-color: #929292f2;
             margin-top: 60px;
             font-weight: bold;
             line-height: 30px;
@@ -207,6 +207,10 @@
             color: inherit;
             
         }
+        .active-drp{background-color: orangered;
+            margin-left: -120px;
+        }
+        .active-drp a{margin-left: 120px;}
             /* RESPONSIVE MEDIA QUERIS */
         @media only screen and (max-width:900px){
             .main-navbar li a,.btn-container a button {display: none;}

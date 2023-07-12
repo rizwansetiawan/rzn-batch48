@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon"type="favicon" href="../images/logo.png">
+    <link rel="stylesheet" href="../css/testimonials.css">
+    <title>testimonials</title>
+</head>
+<body>
+    <nav>
+        <div class="main-navbar">
+            <img src="../images/logo.png" alt="logo-dumbways"class="nav-logo">
+            <ul class="item-link">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="my-project.html">My Project</a></li>
+                <li><a href="testimonials.html"class="active">Testimonials</a></li>
+            </ul>
+            <div class="btn-container">
+                <button class="dark-mode"><i class="ri-sun-fill"id="icon-dark-mode"></i><i class="ri-moon-fill"id="dark-moon"></i></button>
+                <a href="contact.html"><button type="button"class="btn-contact-nav"onclick="notDefault(event)">contact me</button></a>
+                </div>
+            <div class="burger-menu"onclick="myBurger()">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+        <div class="dropdown-menu">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li class="rows"><a href="my-project.html">My Project</a></li>
+                <li><a href="contact.html">Contact Me</a></li>
+                <li class="rows active-drp"><a href="testimonials.html">Testimonials</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section>
+        <h1 class="title-testi">My Testimonials</h1>
+        <hr>
+        <!-- <h2 class="rating">R<i class="fa-solid fa-star"></i>ting By St<i class="fa-solid fa-star"></i>rs</h2>
+        <div class="btn-start">
+            <button>All</button>
+            <button>1<i class="fa-solid fa-star"></i></button>
+            <button>2<i class="fa-solid fa-star"></i></button>
+            <button>3<i class="fa-solid fa-star"></i></button>
+            <button>4<i class="fa-solid fa-star"></i></button>
+            <button>5<i class="fa-solid fa-star"></i></button>
+        </div> -->
+    </section>
+    <div class="container-testi"id="take-container">
+        <!-- <div class="card-testi1">
+            <div class="content-testi1">
+                <img src="../images/hilman.jpg" alt="">
+                <p>"Mantap Lanjutkan !!"</p>
+                <h3>hilman Ramadhan</h3>
+            </div>
+        </div>
+        <div class="card-testi1">
+            <div class="content-testi1">
+                <img src="../images/henry.png" alt="">
+                <p>"Lumayan lah !!"</p>
+                <h3>henry Manampiring</h3>
+            </div>
+        </div>
+        <div class="card-testi1">
+            <div class="content-testi1">
+                <img src="../images/ed.jpg" alt="">
+                <p>"Kecewa euy !!"</p>
+                <h3>Ed sheeran</h3>
+            </div>
+        </div> -->
+    </div>
+    <script src="../js/testimonials.js"></script>
+</body>
+</html>

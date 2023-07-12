@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: rgba(37, 37, 37, 0.781);">
+    <script>
+
+
+    class handphone{
+        // brand= "";
+        // anjay="";
+    constructor (brand,price){
+        this.merek  =brand;
+        this.anjay  =price;
+    }
+    get anjayy(){
+        return `hp saya adalah ${this.merek} `
+    }
+    get mantap(){
+        return `dan harga nya ${this.anjay}`
+    }
+}
+    const storage = new handphone("asus",1500000)
+    let result = `${storage.anjayy}\n ${storage.mantap}`
+    // console.log(result)
+
+
+    class laptop extends handphone{
+        constructor (brand,price,ram){
+            super(brand,price)
+            this.merek=brand;
+            this.anjay=price;
+            this.ram=ram;
+        }
+        get memory(){
+            return `dan ram nya ${this.memory}`
+        }
+        
+        }
+        const result2 = new laptop("asus",1500000,"8gb") 
+        console.log(result2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function cobaAjaDulu(firtsName,middleName,lastName){
+//     return `halo nama saya ${firtsName} ${middleName} ${lastName}`
+// }
+// let result = cobaAjaDulu("muhamad","rizwan","setiawan")
+//     console.log(result)
+    </script>
+</body>
+</html>
