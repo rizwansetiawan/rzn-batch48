@@ -270,8 +270,7 @@ async function allTestimonials (){
              <div class="content-testi1">
                  <img src="${allData.image}" alt="photos"id="photos">
                  <p>"${allData.quote} !!"</p>
-                 <i class="fa-solid fa-star"></i>${allData.rating}
-                 <h3>${allData.author}</h3>
+                 <h3><i class="fa-solid fa-star"></i>${allData.rating} - ${allData.author}</h3>
              </div>
          </div>
          </div>`
@@ -293,8 +292,7 @@ storageData+=`<div class="container-testi"id="take-container">
     <div class="content-testi1">
         <img src="${allData.image}" alt="photos">
         <p>"${allData.quote} !!"</p>
-        <i class="fa-solid fa-star"></i>${allData.rating}
-        <h3>${allData.author}</h3>
+        <h3><i class="fa-solid fa-star"></i>${allData.rating} - ${allData.author}</h3>
     </div>
 </div>
 </div>`
@@ -315,8 +313,7 @@ function searchUser(event){
     <div class="content-testi1">
         <img src="${allData.image}" alt="photos">
         <p>"${allData.quote} !!"</p>
-        <i class="fa-solid fa-star"></i>${allData.rating}
-        <h3>${allData.author}</h3>
+        <h3><i class="fa-solid fa-star"></i>${allData.rating} - ${allData.author}</h3>
     </div>
 </div>
 </div>`
