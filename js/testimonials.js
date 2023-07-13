@@ -193,11 +193,36 @@ all.addEventListener("click",function(){
     //         rating  :3
     //     },
     //     {
-    //         author  :"jackson derulo",
+    //         author  :"jhon lenon",
     //         image   :"https://plus.unsplash.com/premium_photo-1661672531138-179bf3399f5c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80",
     //         quote   :"kecewa tidak ramah",
     //         rating  :2
     //     },
+    //     {
+    //         author  :"Hilman ramadhan",
+    //         image   :"https://plus.unsplash.com/premium_photo-1661962327591-1b7072da3242?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1306&q=80",
+    //         quote   :"Mantap boss ku",
+    //         rating  :5
+    //     },
+    //     {
+    //         author  :"henry",
+    //         image   :"https://images.unsplash.com/photo-1498180611022-63f1e85ea7ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1332&q=80",
+    //         quote   :"kacau ini orang",
+    //         rating  :1
+    //     },
+    //     {
+    //         author  :"ed sheeran",
+    //         image   :"https://images.unsplash.com/photo-1445985543470-41fba5c3144a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+    //         quote   :"mayan lah tingkatkan lagi",
+    //         rating  :3
+    //     },
+        // {
+        //         author  :"mario",
+        //         image   :"https://images.unsplash.com/photo-1595875635468-60772f72997e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        //         quote   :"mayan lah tingkatkan lagi",
+        //         rating  :4
+        //    },
+        
     // ];
 // function allTestimonials(){
 //     let storageData = "";
@@ -244,7 +269,7 @@ all.addEventListener("click",function(){
 
 const promises = new Promise((resolved,rejected)=>{
     let xhr = new XMLHttpRequest()
-    xhr.open("GET","https://api.npoint.io/79c0f604ebd312028838",true)
+    xhr.open("GET","https://api.npoint.io/643f7cb4b917409b4373",true)
     xhr.onload = function(){
         if(xhr.status===200){
             resolved(JSON.parse(xhr.responseText))
@@ -308,7 +333,7 @@ function searchUser(event){
         return allData.author.toLowerCase().includes(search)
     })
     allDataUser.forEach((allData)=>{
-        storageData+=`<div class="container-testi"id="take-container">
+     storageData +=`<div class="container-testi"id="take-container">
 <div class="card-testi1">
     <div class="content-testi1">
         <img src="${allData.image}" alt="photos">

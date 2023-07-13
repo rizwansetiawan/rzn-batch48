@@ -153,7 +153,7 @@
     }
     #search-user input{
         border: none;
-       height: 1.5rem;
+       height: 1.9rem;
        width: 260px;
        font-family: 'Poppins', sans-serif;
        box-shadow: 0 2px 10px rgb(177, 177, 177);
@@ -161,18 +161,27 @@
        padding-left: 5px;
     }
     button[type="reset"]{
-        margin-left: -44px;
+        margin-left: -48px;
         border: none;
-        background-color: rgb(255, 255, 255);
-        color: rgb(0, 0, 0);
+        background-color: transparent;
+        color: rgb(255, 51, 0);
         font-weight: bold;
         cursor: pointer;
         font-size: 18px;
         border-radius: 5px;
+        border-top-right-radius: 2px solid black;
+        width: 28px;
     }
     #search-user i{cursor: pointer;
-        background-color: transparent
-        ;}
+        background-color: transparent;
+        padding: 0 5px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    #search-user button{border: none;
+        background-color: white;
+        border-radius: 2px;
+    }
         .fa-magnifying-glass{color: orangered;
             background-color: orangered
             ;}
