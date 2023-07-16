@@ -276,6 +276,9 @@ const promises = new Promise((resolved,rejected)=>{
         }else{rejected("error loading data")}
     }
     xhr.onerror = ()=>{
+        if(rejected){
+            document.writeln(`<h1 class="not-found"> Koneksi gagal </h1>`)
+        }
         rejected("connection failed")
     }
     xhr.send()
@@ -309,6 +312,7 @@ function filteredTesti(rating){
    const filteredData = allData.filter((allData)=>{
       return allData.rating == rating
    })
+
    if(filteredData.length==0){
     storageData+=`<h1 class="not-found"> DATA NOT FOUND </h1>`
 }else{filteredData.forEach((allData)=>{
@@ -321,10 +325,11 @@ storageData+=`<div class="container-testi"id="take-container">
     </div>
 </div>
 </div>`
+console.log(allData.image)
 })}
 document.querySelector(".container-testi").innerHTML = storageData;
 }
-// make function search user based on a input user 
+// make a function for search user based on a input user 
 function searchUser(event){
     event.preventDefault()
     let search = document.getElementById("search").value.toLowerCase();
@@ -332,16 +337,19 @@ function searchUser(event){
     const allDataUser = allData.filter((allData)=>{
         return allData.author.toLowerCase().includes(search)
     })
+   if(allDataUser.length==0){
+        storageData+=`<h1 class="not-found">USER NOT FOUND</h1>`
+    }else{
     allDataUser.forEach((allData)=>{
      storageData +=`<div class="container-testi"id="take-container">
-<div class="card-testi1">
-    <div class="content-testi1">
-        <img src="${allData.image}" alt="photos">
-        <p>"${allData.quote} !!"</p>
-        <h3><i class="fa-solid fa-star"></i>${allData.rating} - ${allData.author}</h3>
+    <div class="card-testi1">
+        <div class="content-testi1">
+            <img src="${allData.image}" alt="photos">
+            <p>"${allData.quote} !!"</p>
+            <h3><i class="fa-solid fa-star"></i>${allData.rating} - ${allData.author}</h3>
+        </div>
     </div>
-</div>
-</div>`
-    })
-    document.querySelector(".container-testi").innerHTML = storageData;
+    </div>`
+    })}
+    document.querySelector(".container-testi").innerHTML = storageData; 
 }

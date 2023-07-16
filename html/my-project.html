@@ -4,38 +4,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="icon"type="favicon" href="../images/logo.png">
     <link rel="stylesheet" href="../css/my-project.css">
     <link rel="stylesheet" href="../css/blog-details.css">
     <title>my-project</title>
 </head>
-<body>
-    <nav>
-        <div class="main-navbar">
-            <img src="../images/logo.png" alt="logo-dumbways"class="nav-logo">
-            <ul class="item-link">
-                <li><a href="../index.html">Home</a></li>
-                <li><a href=""class="active">My Project</a></li>
-                <li><a href="testimonials.html">Testimonials</a></li>
-            </ul>
-            <div class="btn-container">
-                <button class="dark-mode"><i class="ri-sun-fill"id="dark-sun"></i><i class="ri-moon-fill"id="dark-moon"></i></button>
-                <a href="contact.html"><button type="button"class="btn-contact-nav">contact me</button></a>
+<body class="dark__mode">
+    <nav class="bg-body-tertiary">
+        <div class="container-fluid bg-light ">
+            <div class="d-flex gap-5 ms-3">
+                <i class="bi bi-bootstrap-fill"id="icon-bi"></i>
+                <a href="../index.html"class="nav-link text-decoration-none fw-bold">Home</a>
+                <a href="my-project.html"class="nav-link link-active text-decoration-none text-dark fw-bold">My Project</a>
+                <a href="testimonials.html"class="nav-link text-decoration-none text-dark fw-bold">Testimonials</a>
+                <div class="toggle"><i class="ri-sun-fill"></i><i class="fa-solid fa-moon"></i></div>         
             </div>
-                <div class="burger-menu"onclick="myBurger()">
-                    <i class="fa-solid fa-bars"></i>
-                </div>
+                <p class="text-end me-4">
+                    <button class="btn btn-primary">
+                        <a href="contact.html"class="nav-link text-decoration-none text-light fw-bold px-1">contact</a>
+                    </button>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                        <div class="burger-x"id="burgerX">
+                            <div class="burger-line1"></div>
+                            <div class="burger-line2"></div>
+                            <div class="burger-line3"></div>
+                        </div>
+                    </button>
+                </p>          
+        </div>
+      </nav>
+      <!-- OFFCANVAS -->
+      <div class="offcanvas offcanvas-end text-bg-light" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+        <div class="offcanvas-header">
+          <div class="span-element">
+            <i class="bi bi-bootstrap-fill d-flex"><span class="fs-5 fw-bold ms-2"><h1><strong> Bootstrap</strong></h1></span></i>
+            <hr>
+            <div class="btn-close-dark float-end"id="close-burgerX"data-bs-dismiss="offcanvas" aria-label="Close">
+                <div class="burger-line1"></div>
+                <div class="burger-line2"></div>
+                <div class="burger-line3"></div>
             </div>
-            <div class="dropdown-menu">
-                <ul>
-                    <li><a href="../index.html">Home</a></li>
-                    <li class="rows active-drp""><a href="my-project.html">My Project</a></li>
-                    <li><a href="contact.html">Contact Me</a></li>
-                    <li class="rows"><a href="testimonials.html">Testimonials</a></li>
-                </ul>
-            </div>
-    </nav>
-    <h1 class="header-title">Add My Project</h1>
+            <a href="../index.html"class="nav-link text-decoration-none fw-bold mt-5">Home</a>
+            <a href="my-project.html"class="nav-link text-decoration-none text-dark mt-3 fw-bold">My Project</a>
+            <a href="testimonials.html"class="nav-link text-decoration-none text-dark mt-3 mb-4 fw-bold">Testimonials</a>
+            <button class="btn btn-primary mt-4"><a href="contact.html"class="nav-link text-decoration-none text-light fw-bold">contact</a></button>
+        </div>
+        </div>
+    </div>
+    <!-- END NAV -->
+    <h1 class="header-title mt-5 mb-5">Add My Project</h1>
     <form onsubmit="dataBlog(event)">
         <div class="container-form">
             <div>
@@ -54,35 +72,35 @@
             <div>
                 <label for="textarea">Description</label>
             </div>
-            <textarea id="textarea" cols="30" rows="7"></textarea>
+            <textarea id="textarea" cols="15" rows="5"></textarea>
             <div>
                 <label for="technologies">Technologies</label>
             </div>
             <div class="tech-label">
-            <input type="checkbox"id="react"><span>React Js</span>
-            <input type="checkbox"id="vue"><span>Vue Js</span>
+            <input type="checkbox"id="react"><span> React Js</span>
+            <input type="checkbox"id="vue"><span> Vue Js</span>
             <br>
             <input type="checkbox"id="node"><span> Node Js</span>
             <input type="checkbox"id="angular"><span> Angular Js</span>
             </div>
-            <label for="input-file"onclick="fileMe()">
+            <label for="input-file"onclick="fileMe()"id="for-upload">
                 Upload image
                 <div class="file">
                 <strong>choose</strong>
-                <img src="../images/file.png" alt="upload">
+                <!-- <img src="../images/file.png" alt="upload"> -->
                 <input type="file"id="input-file"hidden> 
             </div>
             </label>
             <p class="btn-submit"><button type="submit"onclick="userValidation()">submit</button></p>
         </div>
     </form>
-    <br><br>
-    <hr>
-    <h1 class="first-card-title">My Project</h1>
+    <br>
+     <br><br>
+    <h1 class="first-card-title mt-5 text-center">My Project</h1>
     
     <div class="card-main-container">
 
-        <div class="card1">
+   <!--     <div class="card1">
             <div class="content-card1">
                 <img src="../images/img2.png" alt="image2"class="image2"/>
                 <h3 class="title-card"><a href="../html/blog-detail.html"> Dumbways Mobile App </a></h3>
@@ -172,8 +190,9 @@
             </div>
             </div>
         </div>
-
-    </div>
+-->
+    </div> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/my-project.js"></script>
 </body>
 </html>
