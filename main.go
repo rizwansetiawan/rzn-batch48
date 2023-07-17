@@ -37,4 +37,5 @@ func datas() {
 	var number2 = 6
 	result := number + number2
 	fmt.Println(result)
+
 }

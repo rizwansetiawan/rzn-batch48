@@ -434,6 +434,9 @@
             #responsive-md{
                 gap: 20px !important;
             }
+            .card.bg-transparent{
+                width: 18rem !important;
+            }
         }
         /* NAV DARK */
         body.dark__mode.open-dark {
