@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="icon"type="favicon" href="../public/images/logo.png">
+    <link rel="stylesheet" href="../public/css/my-project.css">
+    <title>my-project</title>
+</head>
+<body class="dark__mode">
+    <nav class="bg-body-tertiary">
+        <div class="container-fluid bg-light ">
+            <div class="d-flex gap-5 ms-3">
+                <i class="bi bi-bootstrap-fill"id="icon-bi"></i>
+                <a href="/home"class="nav-link text-decoration-none fw-bold">Home</a>
+                <a href="/myproject"class="nav-link link-active text-decoration-none text-dark fw-bold">My Project</a>
+                <a href="/testimonials"class="nav-link text-decoration-none text-dark fw-bold">Testimonials</a>
+                <div class="toggle"><i class="ri-sun-fill"></i><i class="fa-solid fa-moon"></i></div>         
+            </div>
+                <p class="text-end me-4">
+                    <button class="btn btn-primary">
+                        <a href="/contact"class="nav-link text-decoration-none text-light fw-bold px-1">contact</a>
+                    </button>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                        <div class="burger-x"id="burgerX">
+                            <div class="burger-line1"></div>
+                            <div class="burger-line2"></div>
+                            <div class="burger-line3"></div>
+                        </div>
+                    </button>
+                </p>          
+        </div>
+      </nav>
+      <!-- OFFCANVAS -->
+      <div class="offcanvas offcanvas-end text-bg-light" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+        <div class="offcanvas-header">
+          <div class="span-element">
+            <i class="bi bi-bootstrap-fill d-flex"><span class="fs-5 fw-bold ms-2"><h1><strong> Bootstrap</strong></h1></span></i>
+            <hr>
+            <div class="btn-close-dark float-end"id="close-burgerX"data-bs-dismiss="offcanvas" aria-label="Close">
+                <div class="burger-line1"></div>
+                <div class="burger-line2"></div>
+                <div class="burger-line3"></div>
+            </div>
+            <a href="/home"class="nav-link text-decoration-none fw-bold mt-5">Home</a>
+            <a href="/myproject"class="nav-link text-decoration-none text-dark mt-3 fw-bold">My Project</a>
+            <a href="/testimonials"class="nav-link text-decoration-none text-dark mt-3 mb-4 fw-bold">Testimonials</a>
+            <button class="btn btn-primary mt-4"><a href="/contact"class="nav-link text-decoration-none text-light fw-bold">contact</a></button>
+        </div>
+        </div>
+    </div>
+    <!-- END NAV -->
+    <h1 class="header-title mt-5 mb-5 text-center">Add My Project</h1>
+    <form action="/addproject" method="post" onsubmit="dataBlog(event)">
+        <div class="container-form">
+            <div>
+                <label for="name">Project Name</label>
+            </div>
+            <input type="text" id="name"name="name">
+            <br>
+            <div class="date-label">
+                <label for="start-date">Start date</label>
+                <label for="end-date"class="date-end-label">End date</label>
+            </div>
+            <div class="date-input">
+            <input type="date"id="start-date"name="start-date">
+            <input type="date"id="end-date"name="end-date">
+            </div>
+            <div>
+                <label for="textarea">Description</label>
+            </div>
+            <textarea id="textarea"name="textarea" cols="15" rows="5"></textarea>
+            <div>
+                <label for="technologies">Technologies</label>
+            </div>
+            <div class="tech-label">
+            <input type="checkbox"id="react"name="react"value="checked"><span> React Js</span>
+            <input type="checkbox"id="vue"name="vue"value="checked"><span> Vue Js</span>
+            <br>
+            <input type="checkbox"id="node"name="node"value="checked"><span> Node Js</span>
+            <input type="checkbox"id="angular"name="angular"value="checked"><span> Angular Js</span>
+            </div>
+            <label for="input-file"onclick="fileMe()"id="for-upload">
+                Upload image
+                <div class="file">
+                <strong>choose</strong>
+                <input type="file"id="input-file"hidden name="input-file"> 
+            </div>
+            </label>
+            <p class="btn-submit"><button type="submit"onclick="userValidation()">submit</button></p>
+        </div>
+    </form>
+  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../public/js/my-project.js"></script>
+</body>
+</html>
