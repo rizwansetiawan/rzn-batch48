@@ -2,6 +2,7 @@ package main
 
 import (
 	// "context"
+	"context"
 	"fmt"
 	"html/template"
 	"my-modules/connection"
@@ -116,8 +117,23 @@ func sayHello(c echo.Context) error {
 	return c.String(http.StatusOK, "hello world")
 }
 func home(c echo.Context) error {
+
+	connectDb, errDb := connection.Connect.Query(context.Background(), "SELECT id,title,description,image,author,post_date,react,vue,angular,node FROM tb_blog")
+	if errDb != nil {
+		fmt.Println("error get database:", errDb.Error())
+	}
+	var result []blog
+	for connectDb.Next() {
+		var each = blog{}
+		err := connectDb.Scan(&each.ID, &each.Title, &each.Description, &each.Image, &each.Author, &each.Duration, &each.React, &each.Vue, &each.Angular, &each.Node)
+		if err != nil {
+			fmt.Println(err.Error())
+			return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
+		}
+		result = append(result, each)
+	}
 	tmplData := map[string]interface{}{
-		"blog": dataBlog,
+		"blog": result,
 	}
 	template, err := template.ParseFiles("views/index.html")
 	if err != nil {
