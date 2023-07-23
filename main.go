@@ -4,7 +4,8 @@ import (
 	// "context"
 	"fmt"
 	"html/template"
-	"my-modules/connection"
+
+	// "my-modules/connection"
 	"net/http"
 	"strconv"
 	"time"
@@ -13,7 +14,7 @@ import (
 )
 
 func main() {
-	connection.DatabaseConnect()
+	// connection.DatabaseConnect()
 	e := echo.New()
 	// acces folder
 	e.Static("public", "public")
@@ -23,14 +24,14 @@ func main() {
 	e.GET("/myproject", myProject)
 	e.GET("/testimonials", testimonials)
 	e.GET("/contact", contact)
-	e.GET("/blogdetail/:id", blogDetail)
+	e.GET("/blogdetail/:jamal", blogDetail)
 	e.GET("/update-project/:id", updateProject)
 
 	e.POST("/addproject", addProject)
 	e.POST("/delete/:id", deleteData)
-	e.POST("/edit/:id", editProject)
+	e.POST("/edit/:ygy", editProject)
 
-	// IP addres SEVER
+	// IP addres SERVER
 	e.Logger.Fatal(e.Start("localhost:5000"))
 }
 
@@ -155,8 +156,9 @@ func blogDetail(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message5": err.Error()})
 	}
-	id := c.Param("id")
+	id := c.Param("jamal")
 	toInt, _ := strconv.Atoi(id)
+
 	var blogDetail = blog{}
 	for index, data := range dataBlog {
 		if index == toInt {
@@ -239,9 +241,9 @@ func addProject(c echo.Context) error {
 	return c.Redirect(http.StatusMovedPermanently, "/home")
 }
 func deleteData(c echo.Context) error {
-	id, _ := strconv.Atoi(c.Param("id"))
-	fmt.Println("delete ke :", id)
-	dataBlog = append(dataBlog[:id], dataBlog[id+1:]...)
+	index, _ := strconv.Atoi(c.Param("id"))
+	fmt.Println("delete ke :", index)
+	dataBlog = append(dataBlog[:index], dataBlog[index+1:]...)
 
 	return c.Redirect(http.StatusMovedPermanently, "/home")
 }
@@ -300,57 +302,51 @@ func updateProject(c echo.Context) error {
 }
 
 func editProject(c echo.Context) error {
-	getName := c.FormValue("name")
-	getStartDate := c.FormValue("start-date")
-	getEndDate := c.FormValue("end-date")
-	getDescription := c.FormValue("textarea")
+	index, _ := strconv.Atoi(c.Param("ygy"))
+	getName := c.FormValue("nameu")
+	getStartDate := c.FormValue("start-dateu")
+	getEndDate := c.FormValue("end-dateu")
+	getDescription := c.FormValue("textareau")
 
 	var react bool
 	var vue bool
 	var angular bool
 	var node bool
 
-	if c.FormValue("react") == "checked" {
+	if c.FormValue("reactu") == "checked" {
 		react = true
 	} else {
 		react = false
 	}
-	if c.FormValue("vue") == "checked" {
+	if c.FormValue("vueu") == "checked" {
 		vue = true
 	} else {
 		vue = false
 	}
-	if c.FormValue("angular") == "checked" {
+	if c.FormValue("angularu") == "checked" {
 		angular = true
 	} else {
 		angular = false
 	}
-	if c.FormValue("node") == "checked" {
+	if c.FormValue("nodeu") == "checked" {
 		node = true
 	} else {
 		node = false
 	}
-	println("name :", getName)
-	println("start-date:", getStartDate)
-	println("end-date:", getEndDate)
-	println("react:", react)
-	println("vue:", vue)
-	println("angular:", angular)
-	println("vue:", node)
-	println("description :", getDescription)
 
 	var newBlog = blog{
 		Title:       getName,
 		Description: getDescription,
 		StartDate:   getStartDate,
 		EndDate:     getEndDate,
+		Duration:    distanceTime(getStartDate, getEndDate),
 		Author:      "user",
 		React:       react,
 		Angular:     angular,
 		Vue:         vue,
 		Node:        node,
 	}
-	dataBlog = append(dataBlog, newBlog)
+	dataBlog[index] = newBlog
 
 	return c.Redirect(http.StatusMovedPermanently, "/home")
 }
