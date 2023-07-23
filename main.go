@@ -275,8 +275,8 @@ func updateProject(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"Message6": err.Error()})
 	}
-	id := c.Param("id")
-	toInt, _ := strconv.Atoi(id)
+	index := c.Param("id")
+	toInt, _ := strconv.Atoi(index)
 	var blogDetail = blog{}
 	for index, data := range dataBlog {
 		if index == toInt {
@@ -296,7 +296,7 @@ func updateProject(c echo.Context) error {
 	}
 	dataValueDetail := map[string]interface{}{
 		"BlogDetail": blogDetail,
-		"Id":         id,
+		"index":      index,
 	}
 	return template.Execute(c.Response(), dataValueDetail)
 }
@@ -347,6 +347,6 @@ func editProject(c echo.Context) error {
 		Node:        node,
 	}
 	dataBlog[index] = newBlog
-
+	//
 	return c.Redirect(http.StatusMovedPermanently, "/home")
 }
