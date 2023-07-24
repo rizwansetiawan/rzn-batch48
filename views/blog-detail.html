@@ -18,7 +18,7 @@
                 <i class="bi bi-bootstrap-fill"id="icon-bi"></i>
                 <a href="/home"class="nav-link text-decoration-none fw-bold">Home</a>
                 <a href="/myproject"class="nav-link text-decoration-none text-dark fw-bold">My Project</a>
-                <a href="/testimonials"class="nav-link link-active text-decoration-none text-dark fw-bold">Testimonials</a>
+                <a href="/testimonials"class="nav-link text-decoration-none text-dark fw-bold">Testimonials</a>
                 <div class="toggle"><i class="ri-sun-fill"></i><i class="fa-solid fa-moon"></i></div>         
             </div>
                 <p class="text-end me-4">
@@ -48,16 +48,18 @@
             </div>
             <a href="/home"class="nav-link text-decoration-none fw-bold mt-5">Home</a>
             <a href="/myProject"class="nav-link text-decoration-none text-dark mt-3 fw-bold">My Project</a>
-            <a href="/testimonials"class="nav-link link-active text-decoration-none text-dark mt-3 mb-4 fw-bold">Testimonials</a>
+            <a href="/testimonials"class="nav-link text-decoration-none text-dark mt-3 mb-4 fw-bold">Testimonials</a>
             <button class="btn btn-primary mt-4"><a href="contact.html"class="nav-link text-decoration-none text-light fw-bold">contact</a></button>
         </div>
         </div>
     </div>
     <!-- END NAV -->
     <h1 class="header-title">{{.BlogDetail.Title}} </h1>
-    <hr class="container-md">
+    <form action="/home"method="get">
+<button class="btn btn-light fw-bold ms-5"style=";"><a href="/home"></a><</button>
+</form>
+<hr class="container-md">
 <div class="main-container bg-light">
-
      <div class="container-photo">
         <img src="../public/images/img4.png" alt="photo-coding"class="image-blog"/>
      </div>
@@ -65,9 +67,9 @@
         <h3 class="fw-bold">Duration</h3>
         <i class="fa-sharp fa-solid fa-calendar-days"></i><strong> {{.BlogDetail.StartDate}} - {{.BlogDetail.EndDate}}</strong>
         <br>
-        <i class="fa-sharp fa-solid fa-clock"></i><strong>1 month</strong> 
+        <i class="fa-sharp fa-solid fa-clock mt-4"></i><strong>{{.BlogDetail.Duration}}</strong> 
         <br>
-        <h3 class="fw-bold">Technologies</h3>
+        <h3 class="fw-bold mt-4">Technologies</h3>
         <div class="d-flex gap-4">
             {{if .BlogDetail.React}}
             <i class="fa-brands fa-react fs-2 mt-2 text-info"></i>{{end}}

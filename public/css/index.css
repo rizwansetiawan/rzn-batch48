@@ -231,5 +231,6 @@
         .open-dark #open-light-title{
             color: white !important;
         }
+        .open-dark .container-card{background-color: #2b2b2b !important;}
         
         

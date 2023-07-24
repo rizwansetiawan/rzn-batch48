@@ -9,10 +9,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../public/css/index.css">
+    <style>
+      /* INTERNAL CSS KARENA DI EKSTERNAL TIDAK BISA STYLING  */
+      .container-card{margin-top: 60px !important;}
+      .open-dark .container-card{background-color: #494949b3;color: white;box-shadow: 0 2px 10px grey ;overflow: hidden;}
+      .open-dark .card-body.bg-transparent p.card-text,.open-dark .fa-cloud-arrow-down{color: white !important;}
+      .open-dark .card.bg-transparent{border-bottom-color:  rgb(208, 208, 208) !important;}
+    </style>
 </head>
 <body class="dark__mode">
     <!-- NAV -->
-    <nav class="bg-body-tertiary">
+    <nav class="bg-body-tertiary"id="back-top">
       <div class="container-fluid bg-light ">
           <div class="d-flex gap-5 ms-3">
               <i class="bi bi-bootstrap-fill"id="icon-bi"></i>
@@ -58,7 +65,7 @@
     <!-- CARDSTART -->
     <section>
         <div class="container container-card mt-5 rounded">
-
+          
             <div class="row"style="width: 130%;">
                 <div class="col-sm-6 mb-3 mb-sm-0 mt-5">
                   <div class="ms-2">
@@ -82,7 +89,7 @@
                   </div>
                 </div>
                 <div class="col-sm-6 mt-5">
-                  <div class="bg-light">
+                  <div class="bg-light"id="card-photos">
                     <div class="card bg-transparent" style="width: 20rem;">
                         <img src="../public/images/img1.png" class="card-img-top" alt="...">
                         <div class="card-body bg-transparent">
@@ -101,6 +108,7 @@
     <br>
     <h1 class="text-center mb-5 fw-bold"id="open-light-title">My Project</h1>
     <div class="text-end container-md"><a href="/myproject"><button class="btn fw-bold me-1"id="btn-add-project">add card <i class="fa-solid fa-folder-plus text-light"></i></button></a></div>
+    <button class="btn btn-light fw-bold ms-5"style="transform:rotate(90deg);"><a href="#back-top"></a><</button>
     <!-- CARD -->
     <div class="row gap-5 justify-content-center container-fluid"id="responsive-md">
       {{range $index,$datas := .blog}}
@@ -122,7 +130,7 @@
               
           </div>
         </div>
-        <div class="row gap-4 justify-content-center ">    
+        <div class="row gap-4 justify-content-center "id="btn-adjust">    
           <form action="/delete/{{$index}}" method="post">
         <div class="btn btn-dark col-5 fw-bold mb-3 ms-1"><a href="/update-project/{{$index}}"class="text-decoration-none text-light">edit</a></div>
         <button type="submit" class="btn btn-dark col-5 fw-bold mb-3 ms-5">delete</button>

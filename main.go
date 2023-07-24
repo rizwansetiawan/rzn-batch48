@@ -168,6 +168,7 @@ func blogDetail(c echo.Context) error {
 				Description: data.Description,
 				StartDate:   data.StartDate,
 				EndDate:     data.EndDate,
+				Duration:    data.Duration,
 				React:       data.React,
 				Angular:     data.Angular,
 				Vue:         data.Vue,
@@ -223,7 +224,7 @@ func addProject(c echo.Context) error {
 	println("angular:", angular)
 	println("vue:", node)
 	println("description :", getDescription)
-	fmt.Println()
+
 	newBlog := blog{
 		Title:       getName,
 		Description: getDescription,
