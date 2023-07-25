@@ -146,8 +146,9 @@ func testimonials(c echo.Context) error {
 }
 func contact(c echo.Context) error {
 	template, err := template.ParseFiles("views/contact.html")
+	var messageErr = map[string]string{"message error": err.Error()}
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]string{"message4": err.Error()})
+		return c.JSON(http.StatusInternalServerError, messageErr)
 	}
 	return template.Execute(c.Response(), nil)
 }
