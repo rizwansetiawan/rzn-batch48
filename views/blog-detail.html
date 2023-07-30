@@ -59,11 +59,14 @@
 <div class="main-container bg-light">
 
      <div class="container-photo">
-        <img src="../public/images/{{.BlogDetail.Image}}" alt="photo-coding"class="image-blog"/>
+        <img src="/uploads/{{.BlogDetail.Image}}" alt="photo-coding"class="image-blog"/>
      </div>
      <div class="detailed-product">
         <h3 class="fw-bold mt-2">Duration</h3>
-        <i class="fa-sharp fa-solid fa-calendar-days"></i><strong> {{.BlogDetail.StartDate}} - {{.BlogDetail.EndDate}} </strong>
+        
+        <i class="fa-sharp fa-solid fa-calendar-days"></i><strong> {{.BlogDetail.StartDate}} </strong> <br>
+        <i class="fa-sharp fa-solid fa-calendar-days"></i><strong> {{.BlogDetail.EndDate}} </strong>
+      
         <br>
         <i class="fa-sharp fa-solid fa-clock"></i><strong>{{.BlogDetail.Duration}}</strong> 
         <p>Article By : <strong> {{.BlogDetail.Author}} </strong></p>

@@ -3,9 +3,11 @@ package main
 import (
 	// PACAKAGE
 	"context"
+	"database/sql"
 	"fmt"
 	"html/template"
 	"my-modules/connection"
+	"my-modules/middleware"
 	"net/http"
 	"strconv"
 	"time"
@@ -22,7 +24,8 @@ func main() {
 	e := echo.New()
 	e.Use(session.Middleware(sessions.NewCookieStore([]byte("cookies"))))
 	// acces folder
-	e.Static("public", "public")
+	e.Static("/public", "public")
+	e.Static("/uploads", "uploads")
 	// routing
 	e.GET("/hello", sayHello)
 	e.GET("/home", home)
@@ -34,7 +37,7 @@ func main() {
 	e.GET("/register", register)
 	e.GET("/login", login)
 
-	e.POST("/addproject", addProject)
+	e.POST("/addproject", middleware.UploadFile(addProject))
 	e.POST("/delete/:delete", deleteData)
 	e.POST("/edit/:edit", editProject)
 	e.POST("/submitRegister", submitRegister)
@@ -72,7 +75,7 @@ func sayHello(c echo.Context) error {
 	return c.String(http.StatusOK, "hello world")
 }
 func home(c echo.Context) error {
-	getData := "SELECT id,title,description,image,author,post_date,react,vue,angular,node,start_date,end_date FROM tb_blog"
+	getData := "SELECT tb_blog.id,tb_user.name,tb_blog.title,tb_blog.description,tb_blog.image,tb_blog.start_date,tb_blog.end_date,tb_blog.react,tb_blog.vue,tb_blog.angular,tb_blog.node FROM tb_blog LEFT JOIN tb_user ON tb_user.id = tb_blog.author_id"
 	connectDb, errDb := connection.Connect.Query(context.Background(), getData)
 	if errDb != nil {
 		fmt.Println("error get database:", errDb.Error())
@@ -80,14 +83,19 @@ func home(c echo.Context) error {
 	var result []blog
 	for connectDb.Next() {
 		var each = blog{}
-		err := connectDb.Scan(&each.ID, &each.Title, &each.Description, &each.Image, &each.Author, &each.Duration, &each.React, &each.Vue, &each.Angular, &each.Node, &each.StartDate, &each.EndDate)
+
+		var tempAuthor sql.NullString // for convert nul in database covert to string empty using SQl.nullString
+
+		err := connectDb.Scan(&each.ID, &tempAuthor, &each.Title, &each.Description, &each.Image, &each.StartDate, &each.EndDate, &each.React, &each.Vue, &each.Angular, &each.Node)
 		if err != nil {
 			fmt.Println(err.Error())
 			return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
 		}
 		each.Duration = distanceTime(each.StartDate, each.EndDate)
+		each.Author = tempAuthor.String
 		result = append(result, each)
 	}
+
 	template, err := template.ParseFiles("views/index.html")
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message1": err.Error()})
@@ -136,8 +144,9 @@ func contact(c echo.Context) error {
 func blogDetail(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 	var blogDetail = blog{}
-	errDb := connection.Connect.QueryRow(context.Background(), "SELECT id,title,description,image,author,post_date,react,vue,angular,node,start_date,end_date FROM tb_blog WHERE id=$1", id).Scan(
-		&blogDetail.ID, &blogDetail.Title, &blogDetail.Description, &blogDetail.Image, &blogDetail.Author, &blogDetail.Duration, &blogDetail.React, &blogDetail.Vue, &blogDetail.Angular, &blogDetail.Node, &blogDetail.StartDate, &blogDetail.EndDate)
+	var tempAuthor sql.NullString
+	errDb := connection.Connect.QueryRow(context.Background(), "SELECT tb_blog.id,tb_user.name,tb_blog.title,tb_blog.description,tb_blog.image,tb_blog.start_date,tb_blog.end_date,tb_blog.react,tb_blog.vue,tb_blog.angular,tb_blog.node FROM tb_blog LEFT JOIN tb_user ON tb_user.id = tb_blog.author_id WHERE tb_blog.id=$1", id).Scan(
+		&blogDetail.ID, &tempAuthor, &blogDetail.Title, &blogDetail.Description, &blogDetail.Image, &blogDetail.StartDate, &blogDetail.EndDate, &blogDetail.React, &blogDetail.Vue, &blogDetail.Angular, &blogDetail.Node)
 
 	if errDb != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"Message": errDb.Error()})
@@ -147,6 +156,7 @@ func blogDetail(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message5": err.Error()})
 	}
+	blogDetail.Author = tempAuthor.String
 	dataBlogDetail := map[string]interface{}{
 		"BlogDetail": blogDetail,
 	}
@@ -158,7 +168,7 @@ func addProject(c echo.Context) error {
 	getStartDate := c.FormValue("start-date")
 	getEndDate := c.FormValue("end-date")
 	getDescription := c.FormValue("textarea")
-
+	image := c.Get("dataFile").(string)
 	var react bool
 	var vue bool
 	var angular bool
@@ -184,10 +194,11 @@ func addProject(c echo.Context) error {
 	} else {
 		node = false
 	}
+	sess, _ := session.Get("session", c)
 	valueDatabase := [...]interface{}{
 		getName,
 		getDescription,
-		"ps.jpg",
+		image,
 		"user",
 		"3 bulan",
 		react,
@@ -198,8 +209,9 @@ func addProject(c echo.Context) error {
 		getEndDate,
 		getStartDate,
 		getEndDate,
+		sess.Values["id"].(int),
 	}
-	_, errDb := connection.Connect.Exec(context.Background(), "INSERT INTO tb_blog(title,description,image,author,post_date,react,vue,angular,node,start_date,end_date,date1,date2) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)", valueDatabase[:]...)
+	_, errDb := connection.Connect.Exec(context.Background(), "INSERT INTO tb_blog(title,description,image,author,post_date,react,vue,angular,node,start_date,end_date,date1,date2,author_id) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)", valueDatabase[:]...)
 	if errDb != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": errDb.Error()})
 	}

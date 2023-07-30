@@ -186,10 +186,10 @@
     <div class="row gap-5 justify-content-center container-fluid"id="responsive-md">
       {{range $datas := .blog}}
     <div class="card col-xl-4 col-sm-12" style="width: 25rem;height: 35rem;"id="sizing-adjust">
-        <img src="../public/images/{{$datas.Image}}" class="card-img-top mt-2" alt="..."style="height:268px">
+        <img src="/uploads/{{$datas.Image}}" class="card-img-top mt-2" alt="..."style="height:268px">
         <div class="card-body overflow-auto">
             <div class="card-title"><a href="blogdetail/{{$datas.ID}}"class="text-decoration-none fw-bold text-dark fs-5">{{$datas.Title}}</a></div>
-            <small>duration : {{$datas.Duration}} | <strong class="text-dark "><a href="#" class="link-underline-success"> {{$.flashName}}</a></strong></small>
+            <small>duration : {{$datas.Duration}} | <strong class="text-dark "><a href="#" class="link-underline-success"> {{$datas.Author}}</a></strong></small>
           <p class="card-text">{{$datas.Description}}.</p>
           <div class="icon d-flex gap-4">
             {{if $datas.React}}
