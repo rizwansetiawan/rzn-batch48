@@ -1,7 +1,7 @@
 package main
 
 import (
-	// "context"
+	// PACAKAGE
 	"context"
 	"fmt"
 	"html/template"
@@ -10,12 +10,17 @@ import (
 	"strconv"
 	"time"
 
+	// DEPENDENCIES
+	"github.com/gorilla/sessions"
+	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func main() {
 	connection.DatabaseConnect()
 	e := echo.New()
+	e.Use(session.Middleware(sessions.NewCookieStore([]byte("cookies"))))
 	// acces folder
 	e.Static("public", "public")
 	// routing
@@ -26,10 +31,15 @@ func main() {
 	e.GET("/contact", contact)
 	e.GET("/blogdetail/:id", blogDetail)
 	e.GET("/update-project/:id", updateProject)
+	e.GET("/register", register)
+	e.GET("/login", login)
 
 	e.POST("/addproject", addProject)
-	e.POST("/delete/:id", deleteData)
-	e.POST("/edit/:id", editProject)
+	e.POST("/delete/:delete", deleteData)
+	e.POST("/edit/:edit", editProject)
+	e.POST("/submitRegister", submitRegister)
+	e.POST("/submitLogin", submitLogin)
+	e.POST("/logout", logout)
 
 	// IP addres SEVER
 	e.Logger.Fatal(e.Start("localhost:5000"))
@@ -39,8 +49,10 @@ type blog struct {
 	ID          int
 	Title       string
 	Description string
-	StartDate   string
-	EndDate     string
+	StartDate   time.Time
+	EndDate     time.Time
+	Date1       string
+	Date2       string
 	Duration    string
 	Author      string
 	Image       string
@@ -49,97 +61,52 @@ type blog struct {
 	Angular     bool
 	Node        bool
 }
-
-var dataBlog = []blog{
-	{
-		Title:       "Dumbways Mobile App 2021",
-		Description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque incidunt explicabo abasa lorem dolor",
-		StartDate:   "12 januari 2023",
-		EndDate:     "16 february 2023",
-		Duration:    distanceTime("2022-01-01", "2022-03-01"),
-		Author:      "Rhoma Irama",
-		React:       true,
-		Vue:         true,
-		Angular:     false,
-		Node:        true,
-	},
-	{
-		Title:       "JavaScipt",
-		Description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque incidunt explicabo ab nemo praesentium,",
-		StartDate:   "18 januari 2021",
-		EndDate:     "14 february 2022",
-		Duration:    distanceTime("2022-01-01", "2022-11-01"),
-		Author:      "Peter",
-		React:       true,
-		Vue:         true,
-		Angular:     true,
-		Node:        true,
-	},
-	{
-		Title:       "Angular JS",
-		Description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. some quick adapsing lorem ",
-		StartDate:   "14 januari 2020",
-		EndDate:     "12 desember 2021",
-		Duration:    distanceTime("2022-01-01", "2022-02-01"),
-		Author:      "Jamal",
-		React:       true,
-		Vue:         true,
-		Angular:     false,
-		Node:        true,
-	},
-	{
-		Title:       "React JS",
-		Description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque incidunt explicabo ab nemo praesentium, quae asperiores a, omnis odit optio architecto, molestiae ",
-		StartDate:   "14 januari 2020",
-		EndDate:     "12 desember 2021",
-		Duration:    distanceTime("2022-01-01", "2023-08-12"),
-		Author:      "Berners le",
-		React:       true,
-		Vue:         true,
-		Angular:     false,
-		Node:        true,
-	},
-	{
-		Title:       "Vue JS",
-		Description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque incidunt explicabo ab nemo praesentium, quae asperiores a, omnis odit optio architecto, molestiae ",
-		StartDate:   "14 januari 2020",
-		EndDate:     "12 desember 2021",
-		Duration:    distanceTime("2022-01-01", "2022-03-01"),
-		Author:      "Christoper",
-		React:       true,
-		Vue:         true,
-		Angular:     false,
-		Node:        false,
-	},
+type dataUser struct {
+	ID       int
+	Name     string
+	Email    string
+	Password string
 }
 
 func sayHello(c echo.Context) error {
 	return c.String(http.StatusOK, "hello world")
 }
 func home(c echo.Context) error {
-
-	connectDb, errDb := connection.Connect.Query(context.Background(), "SELECT id,title,description,image,author,post_date,react,vue,angular,node FROM tb_blog")
+	getData := "SELECT id,title,description,image,author,post_date,react,vue,angular,node,start_date,end_date FROM tb_blog"
+	connectDb, errDb := connection.Connect.Query(context.Background(), getData)
 	if errDb != nil {
 		fmt.Println("error get database:", errDb.Error())
 	}
 	var result []blog
 	for connectDb.Next() {
 		var each = blog{}
-		err := connectDb.Scan(&each.ID, &each.Title, &each.Description, &each.Image, &each.Author, &each.Duration, &each.React, &each.Vue, &each.Angular, &each.Node)
+		err := connectDb.Scan(&each.ID, &each.Title, &each.Description, &each.Image, &each.Author, &each.Duration, &each.React, &each.Vue, &each.Angular, &each.Node, &each.StartDate, &each.EndDate)
 		if err != nil {
 			fmt.Println(err.Error())
 			return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
 		}
+		each.Duration = distanceTime(each.StartDate, each.EndDate)
 		result = append(result, each)
-	}
-	tmplData := map[string]interface{}{
-		"blog": result,
 	}
 	template, err := template.ParseFiles("views/index.html")
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message1": err.Error()})
 	}
-	return template.Execute(c.Response(), tmplData)
+	sess, errsess := session.Get("session", c)
+	if errsess != nil {
+		return c.JSON(http.StatusInternalServerError, errsess.Error())
+	}
+	flash := map[string]interface{}{
+		"flashMessage": sess.Values["message"],
+		"flashStatus":  sess.Values["status"],
+		"flashName":    sess.Values["name"],
+		"isLogin":      sess.Values["isLogin"],
+		"blog":         result,
+	}
+	delete(sess.Values, "message")
+	// delete(sess.Values, "status")
+	sess.Save(c.Request(), c.Response())
+	return template.Execute(c.Response(), flash)
 
 }
 func myProject(c echo.Context) error {
@@ -147,10 +114,10 @@ func myProject(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message2": err.Error()})
 	}
-	tmplData := map[string]interface{}{
-		"blog": dataBlog,
-	}
-	return template.Execute(c.Response(), tmplData)
+	// tmplData := map[string]interface{}{
+	// 	"blog": dataBlog,
+	// }
+	return template.Execute(c.Response(), nil)
 }
 func testimonials(c echo.Context) error {
 	template, err := template.ParseFiles("views/testimonials.html")
@@ -167,34 +134,23 @@ func contact(c echo.Context) error {
 	return template.Execute(c.Response(), nil)
 }
 func blogDetail(c echo.Context) error {
+	id, _ := strconv.Atoi(c.Param("id"))
+	var blogDetail = blog{}
+	errDb := connection.Connect.QueryRow(context.Background(), "SELECT id,title,description,image,author,post_date,react,vue,angular,node,start_date,end_date FROM tb_blog WHERE id=$1", id).Scan(
+		&blogDetail.ID, &blogDetail.Title, &blogDetail.Description, &blogDetail.Image, &blogDetail.Author, &blogDetail.Duration, &blogDetail.React, &blogDetail.Vue, &blogDetail.Angular, &blogDetail.Node, &blogDetail.StartDate, &blogDetail.EndDate)
+
+	if errDb != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"Message": errDb.Error()})
+	}
+	blogDetail.Duration = distanceTime(blogDetail.StartDate, blogDetail.EndDate)
 	template, err := template.ParseFiles("views/blog-detail.html")
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message5": err.Error()})
 	}
-	id := c.Param("id")
-	toInt, _ := strconv.Atoi(id)
-	var blogDetail = blog{}
-	for index, data := range dataBlog {
-		if index == toInt {
-			blogDetail = blog{
-				Title:       data.Title,
-				Author:      data.Author,
-				Description: data.Description,
-				StartDate:   data.StartDate,
-				EndDate:     data.EndDate,
-				React:       data.React,
-				Angular:     data.Angular,
-				Vue:         data.Vue,
-				Node:        data.Node,
-			}
-
-		}
-	}
-	dataValueDetail := map[string]interface{}{
+	dataBlogDetail := map[string]interface{}{
 		"BlogDetail": blogDetail,
 	}
-
-	return template.Execute(c.Response(), dataValueDetail)
+	return template.Execute(c.Response(), dataBlogDetail)
 }
 func addProject(c echo.Context) error {
 
@@ -228,42 +184,39 @@ func addProject(c echo.Context) error {
 	} else {
 		node = false
 	}
-
-	println("name :", getName)
-	println("start-date:", getStartDate)
-	println("end-date:", getEndDate)
-	println("react:", react)
-	println("vue:", vue)
-	println("angular:", angular)
-	println("vue:", node)
-	println("description :", getDescription)
-	fmt.Println()
-	newBlog := blog{
-		Title:       getName,
-		Description: getDescription,
-		StartDate:   getStartDate,
-		EndDate:     getEndDate,
-		Duration:    distanceTime(getStartDate, getEndDate),
-		Author:      "user",
-		React:       react,
-		Angular:     angular,
-		Vue:         vue,
-		Node:        node,
+	valueDatabase := [...]interface{}{
+		getName,
+		getDescription,
+		"ps.jpg",
+		"user",
+		"3 bulan",
+		react,
+		vue,
+		angular,
+		node,
+		getStartDate,
+		getEndDate,
+		getStartDate,
+		getEndDate,
 	}
-	dataBlog = append(dataBlog, newBlog)
+	_, errDb := connection.Connect.Exec(context.Background(), "INSERT INTO tb_blog(title,description,image,author,post_date,react,vue,angular,node,start_date,end_date,date1,date2) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)", valueDatabase[:]...)
+	if errDb != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message": errDb.Error()})
+	}
 
 	return c.Redirect(http.StatusMovedPermanently, "/home")
 }
 func deleteData(c echo.Context) error {
-	id, _ := strconv.Atoi(c.Param("id"))
-	fmt.Println("delete ke :", id)
-	dataBlog = append(dataBlog[:id], dataBlog[id+1:]...)
-
+	id, _ := strconv.Atoi(c.Param("delete"))
+	fmt.Println("delete ID :", id)
+	_, errDb := connection.Connect.Exec(context.Background(), "DELETE FROM tb_blog WHERE id=$1", id)
+	if errDb != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message": errDb.Error()})
+	}
 	return c.Redirect(http.StatusMovedPermanently, "/home")
 }
-func distanceTime(time1, time2 string) string {
-	date1, _ := time.Parse("2006-01-02", time1)
-	date2, _ := time.Parse("2006-01-02", time2)
+
+func distanceTime(date1, date2 time.Time) string {
 
 	timediff := date2.Sub(date1)
 	// fmt.Println("result ", timediff)
@@ -289,84 +242,184 @@ func updateProject(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"Message6": err.Error()})
 	}
-	id := c.Param("id")
-	toInt, _ := strconv.Atoi(id)
-	var blogDetail = blog{}
-	for index, data := range dataBlog {
-		if index == toInt {
-			blogDetail = blog{
-				Title:       data.Title,
-				Author:      data.Author,
-				Description: data.Description,
-				StartDate:   data.StartDate,
-				EndDate:     data.EndDate,
-				React:       data.React,
-				Angular:     data.Angular,
-				Vue:         data.Vue,
-				Node:        data.Node,
-			}
+	id, _ := strconv.Atoi(c.Param("id"))
+	var dataTb = blog{}
+	errDb := connection.Connect.QueryRow(context.Background(), "SELECT id,title,description,image,author,post_date,react,vue,angular,node,start_date,end_date,date1,date2 FROM tb_blog WHERE id=$1", id).Scan(
+		&dataTb.ID, &dataTb.Title, &dataTb.Description, &dataTb.Image, &dataTb.Author, &dataTb.Duration, &dataTb.React, &dataTb.Vue, &dataTb.Angular, &dataTb.Node, &dataTb.StartDate, &dataTb.EndDate, &dataTb.Date1, &dataTb.Date2)
 
-		}
+	if errDb != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"Message": errDb.Error()})
 	}
+
 	dataValueDetail := map[string]interface{}{
-		"BlogDetail": blogDetail,
-		"Id":         id,
+		"updateBlog": dataTb,
+		"index":      id,
 	}
 	return template.Execute(c.Response(), dataValueDetail)
 }
 
 func editProject(c echo.Context) error {
-	getName := c.FormValue("name")
-	getStartDate := c.FormValue("start-date")
-	getEndDate := c.FormValue("end-date")
-	getDescription := c.FormValue("textarea")
+	id, _ := strconv.Atoi(c.Param("edit"))
+	getName := c.FormValue("nameu")
+	getStartDate := c.FormValue("start-dateu")
+	getEndDate := c.FormValue("end-dateu")
+	getDescription := c.FormValue("textareau")
 
 	var react bool
 	var vue bool
 	var angular bool
 	var node bool
 
-	if c.FormValue("react") == "checked" {
+	if c.FormValue("reactu") == "checked" {
 		react = true
 	} else {
 		react = false
 	}
-	if c.FormValue("vue") == "checked" {
+	if c.FormValue("vueu") == "checked" {
 		vue = true
 	} else {
 		vue = false
 	}
-	if c.FormValue("angular") == "checked" {
+	if c.FormValue("angularu") == "checked" {
 		angular = true
 	} else {
 		angular = false
 	}
-	if c.FormValue("node") == "checked" {
+	if c.FormValue("nodeu") == "checked" {
 		node = true
 	} else {
 		node = false
 	}
-	println("name :", getName)
-	println("start-date:", getStartDate)
-	println("end-date:", getEndDate)
-	println("react:", react)
-	println("vue:", vue)
-	println("angular:", angular)
-	println("vue:", node)
-	println("description :", getDescription)
-
-	var newBlog = blog{
-		Title:       getName,
-		Description: getDescription,
-		StartDate:   getStartDate,
-		EndDate:     getEndDate,
-		Author:      "user",
-		React:       react,
-		Angular:     angular,
-		Vue:         vue,
-		Node:        node,
+	editDataUser := [...]interface{}{
+		getName,
+		getStartDate,
+		getEndDate,
+		getDescription,
+		react,
+		vue,
+		angular,
+		node,
+		id,
 	}
-	dataBlog = append(dataBlog, newBlog)
+	_, errDb := connection.Connect.Exec(context.Background(), "UPDATE tb_blog SET title=$1,start_date=$2,end_date=$3,description=$4,react=$5,vue=$6,angular=$7,node=$8 WHERE id=$9", editDataUser[:]...)
+
+	if errDb != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message error": errDb.Error()})
+	}
+	println("edited name :", getName)
+	println("edited start-date:", getStartDate)
+	println("edited end-date:", getEndDate)
+	println("edited react:", react)
+	println("edited vue:", vue)
+	println("edited angular:", angular)
+	println("edited vue:", node)
+	println("edited description :", getDescription)
 
 	return c.Redirect(http.StatusMovedPermanently, "/home")
+}
+func register(c echo.Context) error { //GET
+	template, err := template.ParseFiles("views/register.html")
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"Message": err.Error()})
+	}
+
+	return template.Execute(c.Response(), nil)
+}
+func login(c echo.Context) error { //GET
+	template, err := template.ParseFiles("views/login.html")
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"Message": err.Error()})
+	}
+
+	sess, errsess := session.Get("session", c)
+	if errsess != nil {
+		return c.JSON(http.StatusInternalServerError, errsess.Error())
+	}
+	flash := map[string]interface{}{
+		"flashMessage": sess.Values["message"],
+		"flashStatus":  sess.Values["status"],
+	}
+	delete(sess.Values, "message")
+	delete(sess.Values, "status")
+	sess.Save(c.Request(), c.Response())
+	// fmt.Println("message", sess.Values["message"])
+	// fmt.Println("status", sess.Values["status"])
+
+	return template.Execute(c.Response(), flash)
+}
+func submitRegister(c echo.Context) error {
+	name := c.FormValue("name")
+	email := c.FormValue("email")
+	password := c.FormValue("password")
+	hashPw, errPw := bcrypt.GenerateFromPassword([]byte(password), 10)
+	if errPw != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message": errPw.Error()})
+	}
+	fmt.Println("REGISTER:\n", name, email, password)
+	println("PASSWORD BCRYPT", hashPw)
+	dataUser, _ := connection.Connect.Exec(context.Background(), "INSERT INTO tb_user(name,email,password) VALUES($1,$2,$3)", name, email, hashPw)
+
+	fmt.Println("affect", dataUser.RowsAffected())
+
+	//ini cookies / membuat cookies untuk di tangkap di func / halaman yang di direksi kan
+	// sess, errsess := session.Get("session", c)
+	// if errsess != nil {
+	// 	return c.JSON(http.StatusInternalServerError, errsess.Error())
+	// }
+	// sess.Values["message"] = "register berhasil" // name string sess / deklasrai => value
+	// sess.Values["status"] = true
+	// sess.Values["messageFailed"] = "register gagal"
+	// sess.Save(c.Request(), c.Response())
+
+	// if errDb != nil {
+	// 	return redirectWithMessage(c, "registrasi gagal", false, "/register")
+	// }
+	return redirectWithMessage(c, "registrasi berhasil", true, "/login")
+	// return c.Redirect(http.StatusMovedPermanently, "/login")
+}
+func submitLogin(c echo.Context) error { /// PR
+	var email = c.FormValue("email")
+	var password = c.FormValue("password")
+
+	user := dataUser{}
+
+	err := connection.Connect.QueryRow(context.Background(), "SELECT id,name,email,password FROM tb_user WHERE email=$1", email).Scan(&user.ID, &user.Name, &user.Email, &user.Password)
+	if err != nil {
+
+		return redirectWithMessage(c, "email atau password salah", false, "/login")
+	}
+	errHash := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+	if errHash != nil {
+		return redirectWithMessage(c, "email atau password salah", false, "/login")
+	}
+	sess, _ := session.Get("session", c)
+	sess.Options.MaxAge = 300
+	sess.Values["message"] = "Login Berhasil !"
+	sess.Values["status"] = true
+	sess.Values["email"] = user.Email
+	sess.Values["name"] = user.Name
+	sess.Values["id"] = user.ID
+	sess.Values["isLogin"] = true
+	sess.Save(c.Request(), c.Response())
+
+	return c.Redirect(http.StatusMovedPermanently, "/home")
+}
+
+func logout(c echo.Context) error {
+	sess, _ := session.Get("session", c)
+	sess.Options.MaxAge = -1
+	sess.Save(c.Request(), c.Response())
+	return redirectWithMessage(c, "log out berhasil", true, "/home")
+}
+
+func redirectWithMessage(c echo.Context, message string, status bool, redirectPath string) error {
+	sess, errSess := session.Get("session", c)
+	if errSess != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message error redirect": errSess.Error()})
+	}
+	sess.Values["message"] = message
+	sess.Values["status"] = true
+
+	sess.Save(c.Request(), c.Response())
+	return c.Redirect(http.StatusMovedPermanently, redirectPath)
 }

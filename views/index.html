@@ -15,20 +15,68 @@
       .open-dark .container-card{background-color: #494949b3;color: white;box-shadow: 0 2px 10px grey ;overflow: hidden;}
       .open-dark .card-body.bg-transparent p.card-text,.open-dark .fa-cloud-arrow-down{color: white !important;}
       .open-dark .card.bg-transparent{border-bottom-color:  rgb(208, 208, 208) !important;}
+
+      .btn-add-project{position: relative;background-color: rgb(234, 73, 255);}
+      .btn-add-project::after{content: "";
+      position: absolute;
+      width: 102%;
+      height: 104% ;
+      top: -1px;
+      left: -1px;
+      right: 0;
+      cursor: not-allowed;
+      background-color: rgba(218, 218, 218, 0.268);
+      border-radius: 5px;
+      
+    }
+    .not-allowed-button2{position: relative;}
+      .not-allowed-button2::after{content: "";
+      position: absolute;
+      width: 100%;
+      height: 100% ;
+      top: 0;
+      right: 24px;
+      left: 0;
+      cursor: not-allowed;
+      background-color: #00000007;
+      border-radius: 5px;
+      
+    }
+    /* .not-allowed-button:hover::after{background-color: rgba(255, 255, 255, 0.434);} */
     </style>
 </head>
-<body class="dark__mode">
+<body class="dark__mode" {{if.flashStatus}} onmouseover="openAllow()"{{end}}>
     <!-- NAV -->
     <nav class="bg-body-tertiary">
       <div class="container-fluid bg-light ">
           <div class="d-flex gap-5 ms-3">
               <i class="bi bi-bootstrap-fill"id="icon-bi"></i>
               <a href="/home"class="nav-link link-active text-decoration-none fw-bold">Home</a>
-              <a href="/myproject"class="nav-link text-decoration-none text-dark fw-bold">My Project</a>
+
+              <a href="/myproject"class="nav-link text-decoration-none text-dark fw-bold pe-none"id="pe-active-link">My Project</a>
+
               <a href="/testimonials"class="nav-link text-decoration-none text-dark fw-bold">Testimonials</a>
-              <div class="toggle"><i class="ri-sun-fill"></i><i class="fa-solid fa-moon"></i></div>         
+              <div class="toggle"><i class="ri-sun-fill"></i><i class="fa-solid fa-moon"></i></div>
+              {{if.isLogin}}
+              {{if.flashStatus}}
+              <a href="#"class="nav-link text-decoration-none text-dark"> Hello <strong> {{.flashName}} 👋 </strong></a>
+              <form action="/logout" method="post">
+              <button class="rounded"style="background-color:rgb(225, 0, 255);border:none">
+                <a href="##"class="nav-link text-decoration-none pe-none text-light fw-bold px-1">Log out</a>
+              </button>
+              </form>
+              {{end}}
+              {{end}}
           </div>
-              <p class="text-end me-4">
+              <div class="text-end me-4">
+                
+                <button class="btn btn-primary bg-transparent text-dark me-3">
+                  <a href="/register"class="nav-link text-decoration-none text-dark fw-bold px-1"{{if.flashStatus}} hidden {{end}} >Register</a>
+              </button>
+                <button class="btn btn-primary bg-transparent me-5">
+                  <a href="/login"class="nav-link text-decoration-none text-dark fw-bold px-1"{{if.flashStatus}} hidden {{end}} >Login</a>
+              </button>
+                
                   <button class="btn btn-primary">
                       <a href="/contact"class="nav-link text-decoration-none text-light fw-bold px-1">contact</a>
                   </button>
@@ -39,7 +87,7 @@
                           <div class="burger-line3"></div>
                       </div>
                   </button>
-              </p>          
+              </div>          
       </div>
     </nav>
     <!-- OFFCANVAS -->
@@ -56,6 +104,8 @@
           <a href="/home"class="nav-link link-active text-decoration-none fw-bold mt-5">Home</a>
           <a href="/myproject"class="nav-link text-decoration-none text-dark mt-3 fw-bold">My Project</a>
           <a href="/testimonials"class="nav-link text-decoration-none text-dark mt-3 mb-4 fw-bold">Testimonials</a>
+          <a href="/register"class="nav-link text-decoration-none text-dark fw-bold mb-4 ">Register</a>
+            <a href="/login"class="nav-link text-decoration-none text-dark fw-bold mb-4">Log in</a>
           <button class="btn btn-primary mt-4"><a href="contact.html"class="nav-link text-decoration-none text-light fw-bold">contact</a></button>
       </div>
       </div>
@@ -63,7 +113,23 @@
   <!-- END NAV -->
     
     <!-- CARDSTART -->
+    {{if.flashMessage}}
+        {{if.flashStatus}}
+    <div class="container-fluid">
+      <p class="alert alert-info alert-dismissible fade show" role="alert"style="border-color:#008000;width:200px;margin:0 auto">
+        <strong>{{.flashMessage}}</strong> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </p>
+      {{else}}
+      <p class="alert alert-info alert-dismissible fade show" role="alert"style="border-color:#008000;width:200px;margin:0 auto">
+        <strong>{{.flashMessage}}</strong> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </p>
+    </div>
+    {{end}}
+    {{end}}
     <section>
+      
         <div class="container container-card mt-5 rounded">
 
             <div class="row"style="width: 130%;">
@@ -72,12 +138,12 @@
                     <div class="card-body">
                       <h2 class="card-title fw-bold mb-2">Hi,Welcome To My Hut</h2>
                       <p class="card-text mt-4 text-start">With supporting text below as a natural lead-in to additional content Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repudiandae, quaerat? Laborum soluta veritatis tempore placeat esse, accusamus quos corporis repellendus Lorem ipsum dolor sit amet consectetur adipisicing elit. At, dicta. Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo placeat mollitia eum cumque debitis necessitatibus eligendi at odit! Odio, rem! </p>
-                    <div class="mt-4">
+                    <div class="mt-5 d-flex">
                         <button class="btn btn-primary me-3 mt-5">
                             <a href=""class="nav-link text-decoration-none text-light fw-bold px-1 ">contact</a>
                         </button>
-                      <span class="fw-bold">download CV</span>
-                      <i class="fa-solid fa-cloud-arrow-down ms-3 fs-5 text-dark"></i>
+                      <span class="fw-bold mt-4">download CV</span>
+                      <i class="fa-solid fa-cloud-arrow-down ms-3 fs-5 text-dark mt-4"></i>
                     </div>
                     <div class="d-flex icon fs-1 gap-5 mt-5">
                         <i class="fa-brands fa-facebook text-primary"></i>
@@ -107,15 +173,23 @@
     <hr class="container-md">
     <br>
     <h1 class="text-center mb-5 fw-bold"id="open-light-title">My Project</h1>
-    <div class="text-end container-md"><a href="/myproject"><button class="btn fw-bold me-1"id="btn-add-project">add card <i class="fa-solid fa-folder-plus text-light"></i></button></a></div>
+
+    
+    <div class="text-end container-md ">
+      <button class="btn btn-primary fw-bold btn-add-project me-1">
+        <a href="/myproject"class="text-decoration-none text-light">add card <i class="fa-solid fa-folder-plus text-light"></i></a>
+      </button >
+    </div>
+   
+
     <!-- CARD -->
     <div class="row gap-5 justify-content-center container-fluid"id="responsive-md">
-      {{range $index,$datas := .blog}}
+      {{range $datas := .blog}}
     <div class="card col-xl-4 col-sm-12" style="width: 25rem;height: 35rem;"id="sizing-adjust">
         <img src="../public/images/{{$datas.Image}}" class="card-img-top mt-2" alt="..."style="height:268px">
         <div class="card-body overflow-auto">
-            <div class="card-title"><a href="blogdetail/{{$index}}"class="text-decoration-none fw-bold text-dark fs-5">{{$datas.Title}}</a></div>
-            <small>duration : {{$datas.Duration}} | <strong class="text-dark "><a href="#" class="link-underline-success"> {{$datas.Author}}</a></strong></small>
+            <div class="card-title"><a href="blogdetail/{{$datas.ID}}"class="text-decoration-none fw-bold text-dark fs-5">{{$datas.Title}}</a></div>
+            <small>duration : {{$datas.Duration}} | <strong class="text-dark "><a href="#" class="link-underline-success"> {{$.flashName}}</a></strong></small>
           <p class="card-text">{{$datas.Description}}.</p>
           <div class="icon d-flex gap-4">
             {{if $datas.React}}
@@ -130,106 +204,34 @@
           </div>
         </div>
         <div class="row gap-4 justify-content-center ">    
-          <form action="/delete/{{$index}}" method="post">
-        <div class="btn btn-dark col-5 fw-bold mb-3 ms-1"><a href="/update-project/{{$index}}"class="text-decoration-none text-light">edit</a></div>
-        <button type="submit" class="btn btn-dark col-5 fw-bold mb-3 ms-5">delete</button>
+            <!-- $ keluar dari iterasi / loop -->
+      <form action="/delete/{{$datas.ID}}" method="post">
+
+          <button type="button"class="btn btn-dark not-allowed-button2 col-5 fw-bold mb-3 ms-1"id="update-btn">
+          <a href="/update-project/{{$datas.ID}}"class="text-decoration-none text-light">edit</a>
+          </button>
+          <button type="button" class="btn btn-dark col-5 fw-bold mb-3 ms-5 not-allowed-button2"id="delete-allowed" >delete
+          </button>
+          
       </form>
+      
         </div>
-        
       </div>
       {{end}}
-      <!-- <div class="card col-xl-4 col-sm-12" style="width: 25rem;height: 33rem;"id="sizing-adjust">
-        <img src="../public/images/img3.png" class="card-img-top mt-2" alt="..."style="height:268px">
-        <div class="card-body overflow-auto">
-            <div class="card-title"><a href="/blogdetail/2"class="text-decoration-none fw-bold text-dark">Dumbways Mobile App</a></div>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <div class="icon d-flex gap-4">
-                <i class="fa-brands fa-react fs-2 mt-2 text-info"></i>
-                <i class="fa-brands fa-vuejs fs-2 mt-2 text-success"></i>
-                <i class="fa-brands fa-angular fs-2 mt-2 text-danger"></i>
-                <i class="fa-brands fa-node-js fs-2 mt-2 text-warning"></i>
-          </div>
-        </div>
-        <div class="row gap-4 justify-content-center ">    
-        <div class="btn btn-dark col-5 fw-bold mb-3">edit</div>
-        <div class="btn btn-dark col-5 fw-bold mb-3">delete</div>
-        </div>
-      </div>
-
-      <div class="card col-xl-4 col-sm-12" style="width: 25rem;height: 33rem;"id="sizing-adjust">
-        <img src="../public/images/img4.png" class="card-img-top mt-2" alt="..."style="height:268px">
-        <div class="card-body overflow-auto">
-            <div class="card-title"><a href="/blogdetail/3"class="text-decoration-none fw-bold text-dark">Dumbways Mobile App</a></div>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <div class="icon d-flex gap-4">
-                <i class="fa-brands fa-react fs-2 mt-2 text-info"></i>
-                <i class="fa-brands fa-vuejs fs-2 mt-2 text-success"></i>
-                <i class="fa-brands fa-angular fs-2 mt-2 text-danger"></i>
-                <i class="fa-brands fa-node-js fs-2 mt-2 text-warning"></i>
-          </div>
-        </div>
-        <div class="row gap-4 justify-content-center ">    
-        <div class="btn btn-dark col-5 fw-bold mb-3">edit</div>
-        <div class="btn btn-dark col-5 fw-bold mb-3">delete</div>
-        </div>
-      </div>
-
-      <div class="card col-xl-4 col-sm-12" style="width: 25rem;height: 33rem;"id="sizing-adjust">
-        <img src="../public/images/img4.png" class="card-img-top mt-2" alt="..."style="height:268px">
-        <div class="card-body overflow-auto">
-            <div class="card-title"><a href="/blogdetail/4"class="text-decoration-none fw-bold text-dark">Dumbways Mobile App</a></div>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <div class="icon d-flex gap-4">
-                <i class="fa-brands fa-react fs-2 mt-2 text-info"></i>
-                <i class="fa-brands fa-vuejs fs-2 mt-2 text-success"></i>
-                <i class="fa-brands fa-angular fs-2 mt-2 text-danger"></i>
-                <i class="fa-brands fa-node-js fs-2 mt-2 text-warning"></i>
-          </div>
-        </div>
-        <div class="row gap-4 justify-content-center ">    
-        <div class="btn btn-dark col-5 fw-bold mb-3">edit</div>
-        <div class="btn btn-dark col-5 fw-bold mb-3">delete</div>
-        </div>
-      </div>
-
-      <div class="card col-xl-4 col-sm-12" style="width: 25rem;height: 33rem;"id="sizing-adjust">
-            <img src="../public/images/seth.jpg" class="card-img-top mt-2" alt="..."style="height:268px">
-        <div class="card-body overflow-auto">
-            <div class="card-title"><a href="/blogdetail/5"class="text-decoration-none fw-bold text-dark">Dumbways Mobile App</a></div>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <div class="icon d-flex gap-4">
-                <i class="fa-brands fa-react fs-2 mt-2 text-info"></i>
-                <i class="fa-brands fa-vuejs fs-2 mt-2 text-success"></i>
-                <i class="fa-brands fa-angular fs-2 mt-2 text-danger"></i>
-                <i class="fa-brands fa-node-js fs-2 mt-2 text-warning"></i>
-          </div>
-        </div>
-        <div class="row gap-4 justify-content-center ">    
-        <div class="btn btn-dark col-5 fw-bold mb-3">edit</div>
-        <div class="btn btn-dark col-5 fw-bold mb-3">delete</div>
-        </div>
-      </div>
-
-      <div class="card col-xl-4 col-sm-12" style="width: 25rem;height: 33rem;"id="sizing-adjust">
-        <img src="../public/images/img4.png" class="card-img-top mt-2" alt="..."style="height:268px">
-        <div class="card-body overflow-auto">
-            <div class="card-title"><a href="/blogdetail/6"class="text-decoration-none fw-bold text-dark">Dumbways Mobile App</a></div>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <div class="icon d-flex gap-4">
-                <i class="fa-brands fa-react fs-2 mt-2 text-info"></i>
-                <i class="fa-brands fa-vuejs fs-2 mt-2 text-success"></i>
-                <i class="fa-brands fa-angular fs-2 mt-2 text-danger"></i>
-                <i class="fa-brands fa-node-js fs-2 mt-2 text-warning"></i>
-          </div>
-        </div>
-        <div class="row gap-4 justify-content-center ">    
-        <div class="btn btn-dark col-5 fw-bold mb-3">edit</div>
-        <div class="btn btn-dark col-5 fw-bold mb-3">delete</div>
-        </div>
-      </div> -->
       
     </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../public/js/index.js"></script>
+<script>
+  function openAllow(){
+   
+    document.querySelector(".not-allowed-button2").classList.remove("not-allowed-button2")
+    document.getElementById("delete-allowed").setAttribute("type","submit")
+    document.querySelector(".btn-add-project").classList.remove("btn-add-project")
+    document.getElementById("pe-active-link").classList.remove("pe-none")
+
+
+  }
+</script>
 </body>
 </html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="icon" href="../public/images/logo.png">
+    <link rel="stylesheet" href="../public/css/blog-details.css">
+    <link rel="stylesheet" href="../public/css/contact.css">
+    <title>Login</title>
+    <style>
+        @media (max-width:1280px){
+            #batas{
+                display: none;
+                
+            }
+          #rgs{
+            margin-left: 320px;
+          }
+        }
+        #btn-register{
+            background-color: rgb(217, 0, 255) !important;
+        }
+        @media (min-width:900px){
+            #btn-register{width: 100%;}
+        }
+        @media (max-width:900px){
+            .container-md{width: 60% !important;}
+            #btn-register{width: 100%;}
+            #rgs,#lgn{display: none;}
+        }
+        @media (max-width:768px){
+            .container-md{width: 86% !important;}
+            #btn-register{width: 100%;}
+        }
+        .open-dark .white-text{color: white;}
+        #email,#password{
+            outline-color: rgb(0, 81, 255);
+            
+        }
+    </style>
+</head>
+<body class="dark__mode">
+    <!-- NAV -->
+    <nav class="bg-body-tertiary">
+        <div class="container-fluid bg-light ">
+            <div class="d-flex gap-5 ms-3">
+                <i class="bi bi-bootstrap-fill"id="icon-bi"></i>
+                <a href="/home"class="nav-link text-decoration-none fw-bold">Home</a>
+                <a href="/myproject"class="nav-link text-decoration-none text-dark fw-bold">My Project</a>
+                <a href="/testimonials"class="nav-link text-decoration-none text-dark fw-bold">Testimonials</a>
+                <div class="toggle"><i class="ri-sun-fill"></i><i class="fa-solid fa-moon"></i></div> 
+        
+            </div>
+                <div class="text-end me-4">
+                    
+                    <button class="btn btn-primary bg-transparent text-dark me-3">
+                        <a href="/register"class="nav-link text-decoration-none text-dark fw-bold px-1">Register</a>
+                    </button>
+                      <button class="btn btn-primary bg-transparent me-5">
+                        <a href="/login"class="nav-link link-active text-decoration-none text-dark fw-bold px-1">Login</a>
+                    </button>
+
+                    <button class="btn btn-primary">
+                        <a href="/contact"class="nav-link text-decoration-none text-light fw-bold px-1">contact</a>
+                    </button>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                        <div class="burger-x"id="burgerX">
+                            <div class="burger-line1"></div>
+                            <div class="burger-line2"></div>
+                            <div class="burger-line3"></div>
+                        </div>
+                    </button>
+                </div>          
+        </div>
+      </nav>
+      <!-- OFFCANVAS -->
+      <div class="offcanvas offcanvas-end text-bg-light" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+        <div class="offcanvas-header">
+          <div class="span-element">
+            <i class="bi bi-bootstrap-fill d-flex"><span class="fs-5 fw-bold ms-2"><h1><strong> Bootstrap</strong></h1></span></i>
+            <hr>
+            <div class="btn-close-dark float-end"id="close-burgerX"data-bs-dismiss="offcanvas" aria-label="Close">
+                <div class="burger-line1"></div>
+                <div class="burger-line2"></div>
+                <div class="burger-line3"></div>
+            </div>
+            <a href="/home"class="nav-link text-decoration-none fw-bold mt-5">Home</a>
+            <a href="/myProject"class="nav-link text-decoration-none text-dark mt-3 fw-bold">My Project</a>
+            <a href="/testimonials"class="nav-link text-decoration-none text-dark mt-3 mb-4 fw-bold">Testimonials</a>
+            <a href="/register"class="nav-link text-decoration-none text-dark fw-bold mb-4 ">Register</a>
+            <a href="/login"class="nav-link text-decoration-none text-dark fw-bold mb-4">Log in</a>
+            <button class="btn btn-primary mt-4"><a href="contact.html"class="nav-link text-decoration-none text-light fw-bold">contact</a></button>
+        </div>
+        </div>
+    </div>
+    <br>
+    <h2 class="text-center fw-bold mt-5 white-text">Log in to Your Account</h2>
+    <form action="/submitLogin"method="post">
+        <div class="container-md mt-5"style="width: 36%;">
+        
+        <div>
+            <label for="email">Email</label>
+        </div>
+            <input type="email"id="email"name="email"required>
+        <div>
+            <label for="password">Password</label>
+        </div>
+            <input type="text"id="password"name="password"required>
+        <div>
+            <p class="mt-5"><button type="submit"class="btn btn-none text-light fw-bold"id="btn-register">Log in</button></p>
+        </div>
+
+
+        {{if.flashMessage}}
+        {{if.flashStatus}} <!-- jika true render ini-->
+
+        <div class="alert alert-info alert-dismissible fade show" role="alert"style="border-color:#008000">
+            <strong>{{.flashMessage}} !</strong> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+                            <!-- sampai sini-->
+        {{else}} <!-- jika false render di bawah ini-->
+
+        <div class="alert alert-info alert-dismissible fade show" role="alert"style="border-color:#008000">
+            <strong>{{.flashMessage}} !</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+                            <!-- sampai sini-->
+        {{end}}
+        {{end}}
+          <!-- kondisi berakhir -->
+    </form>
+    <script>
+        // function flashMessage (){
+        //     alert("login berhasil")
+        // }
+    </script>
+    <script src="../public/js/contact.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    </body>
+    </html>

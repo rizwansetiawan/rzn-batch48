@@ -52,35 +52,35 @@
         </div>
     </div>
     <!-- END NAV -->
-    <h1 class="header-title mt-5 mb-5 text-center">Add My Project</h1>
-    <form action="/edit/{{.Id}}" method="post">
+    <h1 class="header-title mt-5 mb-5 text-center">Add Your Project</h1>
+    <form action="/edit/{{.index}}" method="post">
         <div class="container-form">
             <div>
                 <label for="name">Project Name</label>
             </div>
-            <input type="text" id="name"name="name"value="{{.BlogDetail.Title}}">
+            <input type="text" id="name"name="nameu"value="{{.updateBlog.Title}}">
             <br>
             <div class="date-label">
                 <label for="start-date">Start date</label>
                 <label for="end-date"class="date-end-label">End date</label>
             </div>
             <div class="date-input">
-            <input type="date"id="start-date"name="start-date">
-            <input type="date"id="end-date"name="end-date">
+            <input type="date"id="start-date"name="start-dateu"value="{{.updateBlog.Date1}}">
+            <input type="date"id="end-date"name="end-dateu"value={{.updateBlog.Date2}}>
             </div>
             <div>
                 <label for="textarea">Description</label>
             </div>
-            <textarea id="textarea"name="textarea" cols="15" rows="5">{{.BlogDetail.Description}}</textarea>
+            <textarea id="textarea"name="textareau" cols="15" rows="5">{{.updateBlog.Description}}</textarea>
             <div>
                 <label for="technologies">Technologies</label>
             </div>
             <div class="tech-label">
-            <input type="checkbox"id="react"name="react"value="checked"{{if .BlogDetail.React}} checked {{end}}><span> React Js</span>
-            <input type="checkbox"id="vue"name="vue"value="checked"{{if .BlogDetail.Vue}} checked {{end}}><span> Vue Js</span>
+            <input type="checkbox"id="react"name="reactu"value="checked"{{if .updateBlog.React}} checked {{end}}><span> React Js</span>
+            <input type="checkbox"id="vue"name="vueu"value="checked"{{if .updateBlog.Vue}} checked {{end}}><span> Vue Js</span>
             <br>
-            <input type="checkbox"id="node"name="node"value="checked"{{if .BlogDetail.Node}} checked {{end}}><span> Node Js</span>
-            <input type="checkbox"id="angular"name="angular"value="checked"{{if .BlogDetail.Angular}} checked {{end}}><span> Angular Js</span>
+            <input type="checkbox"id="node"name="nodeu"value="checked"{{if .updateBlog.Node}} checked {{end}}><span> Node Js</span>
+            <input type="checkbox"id="angular"name="angularu"value="checked"{{if .updateBlog.Angular}} checked {{end}}><span> Angular Js</span>
             </div>
             <label for="input-file"id="for-upload">
                 Upload image

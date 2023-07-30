@@ -8,7 +8,39 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="icon" href="../public/images/logo.png">
     <link rel="stylesheet" href="../public/css/blog-details.css">
-    <title>blog details</title>
+    <link rel="stylesheet" href="../public/css/contact.css">
+    <title>Register</title>
+    <style>
+        @media (max-width:1280px){
+            #batas{
+                display: none;
+                
+            }
+          #rgs{
+            margin-left: 320px;
+          }
+        }
+        #btn-register{
+            background-color: rgb(217, 0, 255) !important;
+        }
+        @media (min-width:900px){
+            #btn-register{width: 100%;}
+        }
+        @media (max-width:900px){
+            .container-md{width: 60% !important;}
+            #btn-register{width: 100%;}
+            #rgs,#lgn{display: none;}
+        }
+        @media (max-width:768px){
+            .container-md{width: 86% !important;}
+            #btn-register{width: 100%;}
+        }
+        .open-dark .white-text{color: white;}
+        #email,#password{
+            outline-color: rgb(0, 81, 255);
+            
+        }
+    </style>
 </head>
 <body class="dark__mode">
     <!-- NAV -->
@@ -19,9 +51,16 @@
                 <a href="/home"class="nav-link text-decoration-none fw-bold">Home</a>
                 <a href="/myproject"class="nav-link text-decoration-none text-dark fw-bold">My Project</a>
                 <a href="/testimonials"class="nav-link text-decoration-none text-dark fw-bold">Testimonials</a>
-                <div class="toggle"><i class="ri-sun-fill"></i><i class="fa-solid fa-moon"></i></div>         
+                <div class="toggle"><i class="ri-sun-fill"></i><i class="fa-solid fa-moon"></i></div> 
+        
             </div>
-                <p class="text-end me-4">
+                <div class="text-end me-4">
+                    <button class="btn btn-primary bg-transparent text-dark me-3">
+                        <a href="/register"class="nav-link link-active text-decoration-none text-dark fw-bold px-1">Register</a>
+                    </button>
+                      <button class="btn btn-primary bg-transparent me-5">
+                        <a href="/login"class="nav-link  text-decoration-none text-dark fw-bold px-1">Login</a>
+                    </button>
                     <button class="btn btn-primary">
                         <a href="/contact"class="nav-link text-decoration-none text-light fw-bold px-1">contact</a>
                     </button>
@@ -32,7 +71,7 @@
                             <div class="burger-line3"></div>
                         </div>
                     </button>
-                </p>          
+                </div>          
         </div>
       </nav>
       <!-- OFFCANVAS -->
@@ -49,42 +88,40 @@
             <a href="/home"class="nav-link text-decoration-none fw-bold mt-5">Home</a>
             <a href="/myProject"class="nav-link text-decoration-none text-dark mt-3 fw-bold">My Project</a>
             <a href="/testimonials"class="nav-link text-decoration-none text-dark mt-3 mb-4 fw-bold">Testimonials</a>
+            <a href="/register"class="nav-link text-decoration-none text-dark fw-bold mb-4 ">Register</a>
+            <a href="/login"class="nav-link text-decoration-none text-dark fw-bold mb-4">Log in</a>
             <button class="btn btn-primary mt-4"><a href="contact.html"class="nav-link text-decoration-none text-light fw-bold">contact</a></button>
         </div>
         </div>
     </div>
-    <!-- END NAV -->
-    <h1 class="header-title">{{.BlogDetail.Title}} </h1>
-    <hr class="container-md">
-<div class="main-container bg-light">
-
-     <div class="container-photo">
-        <img src="../public/images/{{.BlogDetail.Image}}" alt="photo-coding"class="image-blog"/>
-     </div>
-     <div class="detailed-product">
-        <h3 class="fw-bold mt-2">Duration</h3>
-        <i class="fa-sharp fa-solid fa-calendar-days"></i><strong> {{.BlogDetail.StartDate}} - {{.BlogDetail.EndDate}} </strong>
-        <br>
-        <i class="fa-sharp fa-solid fa-clock"></i><strong>{{.BlogDetail.Duration}}</strong> 
-        <p>Article By : <strong> {{.BlogDetail.Author}} </strong></p>
-        <br>
-        <h3 class="fw-bold">Technologies</h3>
-        <div class="d-flex gap-4">
-            {{if .BlogDetail.React}}
-            <i class="fa-brands fa-react fs-2 mt-2 text-info"></i>{{end}}
-        {{if .BlogDetail.Vue}}
-            <i class="fa-brands fa-vuejs fs-2 mt-2 text-success"></i>{{end}}
-        {{if .BlogDetail.Angular}}
-            <i class="fa-brands fa-angular fs-2 mt-2 text-danger"></i>{{end}}
-        {{if .BlogDetail.Node}}
-            <i class="fa-brands fa-node-js fs-2 mt-2 text-warning"></i>{{end}} 
+    <br>
+    <h2 class="text-center fw-bold mt-5 white-text">Register Your Account</h2>
+    <form action="/submitRegister"method="post">
+        <div class="container-md mt-5"style="width: 36%;">
+            <div>
+                <label for="name">name</label>
+            </div>
+            <input type="text"id="name"name="name"required>
+        <div>
+            <label for="email">Email</label>
         </div>
-     </div>
-</div>
-<div class="article mt-5">
-    <p> {{.BlogDetail.Description}} </p>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../public/js/blog-detail.js"></script>
-</body>
-</html>
+            <input type="email"id="email"name="email"required>
+        <div>
+            <label for="password">Password</label>
+        </div>
+            <input type="text"id="password"name="password"required>
+        <div>
+            <p class="mt-5"><button type="submit"class="btn btn-none text-light fw-bold"id="btn-register">Regsiter</button></p>
+        </div>
+
+    </form>
+    <script>
+        // function flashMessage (){
+        //     alert("login berhasil")
+        // }
+    </script>
+    <script src="../public/js/contact.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    </body>
+    </html>
