@@ -17,7 +17,8 @@
       .open-dark .card.bg-transparent{border-bottom-color:  rgb(208, 208, 208) !important;}
 
       .btn-add-project{position: relative;background-color: rgb(234, 73, 255);}
-      .btn-add-project::after{content: "";
+      
+      /* .btn-add-project::after{content: "";
       position: absolute;
       width: 102%;
       height: 104% ;
@@ -41,20 +42,34 @@
       background-color: #00000007;
       border-radius: 5px;
       
-    }
+    } */
     /* .not-allowed-button:hover::after{background-color: rgba(255, 255, 255, 0.434);} */
+    #pe-active-link{
+      cursor:not-allowed;
+    }
+    
     </style>
+    
+    {{if.flashStatus}}
+    <style> 
+    #pe-active-link{
+      cursor:pointer !important;
+    }
+    </style>
+    {{end}}
 </head>
-<body class="dark__mode" {{if.flashStatus}} onmouseover="openAllow()"{{end}}>
+<body class="dark__mode" >
     <!-- NAV -->
     <nav class="bg-body-tertiary">
       <div class="container-fluid bg-light ">
           <div class="d-flex gap-5 ms-3">
               <i class="bi bi-bootstrap-fill"id="icon-bi"></i>
               <a href="/home"class="nav-link link-active text-decoration-none fw-bold">Home</a>
-
-              <a href="/myproject"class="nav-link text-decoration-none text-dark fw-bold pe-none"id="pe-active-link">My Project</a>
-
+              <a href="/myproject"class="nav-link text-decoration-none text-dark fw-bold"id="pe-active-link">My Project</a>
+              
+             
+              
+              
               <a href="/testimonials"class="nav-link text-decoration-none text-dark fw-bold">Testimonials</a>
               <div class="toggle"><i class="ri-sun-fill"></i><i class="fa-solid fa-moon"></i></div>
               {{if.isLogin}}
@@ -175,9 +190,9 @@
     <h1 class="text-center mb-5 fw-bold"id="open-light-title">My Project</h1>
 
     
-    <div class="text-end container-md ">
-      <button class="btn btn-primary fw-bold btn-add-project me-1">
-        <a href="/myproject"class="text-decoration-none text-light">add card <i class="fa-solid fa-folder-plus text-light"></i></a>
+    <div class="text-end container-md "id="pe-active-link">
+      <button class="btn btn-primary fw-bold btn-add-project me-1"id="pe-active-link">
+        <a href="/myproject"class="text-decoration-none text-light"id="pe-active-link">add card <i class="fa-solid fa-folder-plus text-light"></i></a>
       </button >
     </div>
    
@@ -207,10 +222,10 @@
             <!-- $ keluar dari iterasi / loop -->
       <form action="/delete/{{$datas.ID}}" method="post">
 
-          <button type="button"class="btn btn-dark not-allowed-button2 col-5 fw-bold mb-3 ms-1"id="update-btn">
-          <a href="/update-project/{{$datas.ID}}"class="text-decoration-none text-light">edit</a>
+          <button type="button"class="btn btn-dark not-allowed-button2 col-5 fw-bold mb-3 ms-1"id="pe-active-link">
+          <a href="/update-project/{{$datas.ID}}"class="text-decoration-none text-light"id="pe-active-link">edit</a>
           </button>
-          <button type="button" class="btn btn-dark col-5 fw-bold mb-3 ms-5 not-allowed-button2"id="delete-allowed" >delete
+          <button type="submit" class="btn btn-dark col-5 fw-bold mb-3 ms-5 not-allowed-button2"id="pe-active-link" >delete
           </button>
           
       </form>
@@ -223,15 +238,15 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../public/js/index.js"></script>
 <script>
-  function openAllow(){
+  // function openAllow(){
    
-    document.querySelector(".not-allowed-button2").classList.remove("not-allowed-button2")
-    document.getElementById("delete-allowed").setAttribute("type","submit")
-    document.querySelector(".btn-add-project").classList.remove("btn-add-project")
-    document.getElementById("pe-active-link").classList.remove("pe-none")
+  //   document.querySelector(".not-allowed-button2").classList.remove("not-allowed-button2")
+  //   document.getElementById("delete-allowed").setAttribute("type","submit")
+  //   document.querySelector(".btn-add-project").classList.remove("btn-add-project")
+  //   document.getElementById("pe-active-link").classList.remove("pe-none")
 
 
-  }
+  // }
 </script>
 </body>
 </html>

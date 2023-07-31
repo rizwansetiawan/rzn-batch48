@@ -39,7 +39,7 @@ func main() {
 
 	e.POST("/addproject", middleware.UploadFile(addProject))
 	e.POST("/delete/:delete", deleteData)
-	e.POST("/edit/:edit", editProject)
+	e.POST("/edit/:id", middleware.UploadFile(editProject))
 	e.POST("/submitRegister", submitRegister)
 	e.POST("/submitLogin", submitLogin)
 	e.POST("/logout", logout)
@@ -58,6 +58,7 @@ type blog struct {
 	Date2       string
 	Duration    string
 	Author      string
+	Author_id   int
 	Image       string
 	React       bool
 	Vue         bool
@@ -271,11 +272,15 @@ func updateProject(c echo.Context) error {
 }
 
 func editProject(c echo.Context) error {
-	id, _ := strconv.Atoi(c.Param("edit"))
+	sess, _ := session.Get("session", c)
+	id, _ := strconv.Atoi(c.Param("id"))
 	getName := c.FormValue("nameu")
 	getStartDate := c.FormValue("start-dateu")
 	getEndDate := c.FormValue("end-dateu")
 	getDescription := c.FormValue("textareau")
+	image := c.Get("dataFile").(string)
+	fmt.Println("INI DATA IMAGE", image)
+	author_id := sess.Values["id"]
 
 	var react bool
 	var vue bool
@@ -311,9 +316,11 @@ func editProject(c echo.Context) error {
 		vue,
 		angular,
 		node,
+		image,
+		author_id,
 		id,
 	}
-	_, errDb := connection.Connect.Exec(context.Background(), "UPDATE tb_blog SET title=$1,start_date=$2,end_date=$3,description=$4,react=$5,vue=$6,angular=$7,node=$8 WHERE id=$9", editDataUser[:]...)
+	_, errDb := connection.Connect.Exec(context.Background(), "UPDATE tb_blog SET title=$1,start_date=$2,end_date=$3,description=$4,react=$5,vue=$6,angular=$7,node=$8,image=$9,author_id=$10 WHERE id=$11", editDataUser[:]...)
 
 	if errDb != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message error": errDb.Error()})
@@ -326,6 +333,7 @@ func editProject(c echo.Context) error {
 	println("edited angular:", angular)
 	println("edited vue:", node)
 	println("edited description :", getDescription)
+	println("IMAGE", image)
 
 	return c.Redirect(http.StatusMovedPermanently, "/home")
 }
