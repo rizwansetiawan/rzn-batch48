@@ -6,7 +6,14 @@
 /* .card-1,.card-2,.card3{
     width: 300px;height: 300px !important;
 } */
-
+.container-fluid{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20vh;
+}
+#textHere{color: aqua;
+}
 
     </style>
     <meta charset="UTF-8">
@@ -14,7 +21,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <title>Document</title>
 </head>
-<body class="bg-dark">
+<body class="bg-dark" >
 <!-- 
     <div class="container text-center mt-5"style="height:500px;margin: auto auto;width:500px">
         <div class="row">
@@ -24,13 +31,65 @@
 
     </div> -->
     <!-- <div class="container text-center mt-5"> -->
-        <div class="row container-fluid">
-          <div class="col-sm-12 col-md-3 text-sm-danger  bg-light">Column</div>
-          <div class="col-md-3 col-sm-12 bg-primary">Column</div>
-          <div class="col-md-3 col-sm-12 bg-danger">Column</div>
-          <div class="col-md-3 col-sm-12 bg-warning">Column</div>
+        <div class="container-fluid">
+          <h3 class="text-light d-flex gap-2"id="light">  </h3>
+          <h2 id="textHere"class="fw-bold"> </h2>
         </div>
+        <h1 class="text-light">manual type</h1>
+            <h2 id="manualType"class="text-light"> </h2> <br> <br>
+            <button class="btn btn-light manualGuys" oncanplay="typeds()" >click</button>
+            <h1 id="manualIni"class="text-light"></h1>
+            <h1 id="ambil"class="text-light"></h1>
+            <h1 id="misalkan"class="text-light"></h1>
+
+
       <!-- </div> -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>   
+      <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>  
+<script>
+    // function saya (){
+    //     // let coba  = "text"
+    // }
+    // saya()
+    let text2 = "apa ya"
+
+
+    let typed = new Typed ("#textHere",{  //your get elements
+        strings: ["front end engineer",text2,"fullstack engineer"],
+        typeSpeed:100, //milisecond
+        backSpeed:50,
+        loop:true,
+        
+    })
+    let typedr = new Typed ("#light",{  //your get elements
+        strings: ["i'm"],
+        typeSpeed:50, //milisecond
+        backSpeed:0,
+        loop:false,
+        
+    })
+
+
+    
+    let index = 0
+        let text = "software engineer"
+    function typeds (){
+        
+        if(index < text.length){
+            document.getElementById("manualIni").innerHTML += text.charAt(index)
+            index++
+            setTimeout(typeds,150)
+        }
+    }
+    typeds()
+
+    const textTyped = new Typed ("#ambil",{
+            strings: ["satu","dua"],
+            typeSpeed:150,
+            backSpeed:100,
+            loop:false,
+
+    })
+</script> 
 </body>
 </html>

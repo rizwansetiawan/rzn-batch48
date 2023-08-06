@@ -15,7 +15,6 @@ func UploadFile(next echo.HandlerFunc) echo.HandlerFunc {
 		if err != nil {
 			return c.JSON(http.StatusBadRequest, err.Error())
 		}
-
 		src, errSrc := file.Open()
 		if errSrc != nil {
 			return c.JSON(http.StatusBadRequest, errSrc.Error())

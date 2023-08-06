@@ -158,8 +158,12 @@ func blogDetail(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message5": err.Error()})
 	}
 	blogDetail.Author = tempAuthor.String
+	slice, slice2 := blogDetail.StartDate.String(), blogDetail.EndDate.String()
+	resultSlice, resultSlice2 := slice[:10], slice2[:10]
 	dataBlogDetail := map[string]interface{}{
-		"BlogDetail": blogDetail,
+		"BlogDetail":   blogDetail,
+		"sliceFormat":  resultSlice,
+		"sliceFormat2": resultSlice2,
 	}
 	return template.Execute(c.Response(), dataBlogDetail)
 }
@@ -413,7 +417,7 @@ func submitLogin(c echo.Context) error { /// PR
 		return redirectWithMessage(c, "email atau password salah", false, "/login")
 	}
 	sess, _ := session.Get("session", c)
-	sess.Options.MaxAge = 300
+	sess.Options.MaxAge = 10800
 	sess.Values["message"] = "Login Berhasil !"
 	sess.Values["status"] = true
 	sess.Values["email"] = user.Email
